@@ -5,14 +5,25 @@
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 <html>
+  <nav class="navbar navbar-expand-lg navbar-light bg-primary text-light">
+    <ul class="d-flex justify-content-between navbar-nav mr-auto px-3">
+      <li class="nav-item active px-3">Search</li>
+      {% if user.is_authenticated %}
+        <li class="nav-item px-3 me-auto">Profile</li>
+      {% else %}
+        <li class="nav-item px-3 me-auto">Login</li>
+      {% endif %}
+  </nav>
 <body>
-<h1>University of Virginia Textbook Exchange</h1>
-{% if user.is_authenticated %}
-  <p>Welcome, {{ user|title }}. You are logged in!</p>
-  <a href="/accounts/logout">Logout</a>
-{% else %}
-  <p>Login to get started exchanging your textbooks.</p>
-  <a href="{% provider_login_url 'google' %}">Login With Google</a>
-{% endif %}
+  <div class="ps-3 pt-3">
+  <h1>University of Virginia Textbook Exchange</h1>
+  {% if user.is_authenticated %}
+    <p>Welcome, {{ user|title }}. You are logged in!</p>
+    <a href="/accounts/logout">Logout</a>
+  {% else %}
+    <p>Login to get started exchanging your textbooks.</p>
+    <a href="{% provider_login_url 'google' %}">Login With Google</a>
+  {% endif %}
+  </div>
 </body>
 </html>
