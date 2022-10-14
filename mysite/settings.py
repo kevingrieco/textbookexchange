@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os
 from pathlib import Path
 import sys
-import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-c+ge1n@ceuzv+8#de8x@4_f7oyx-+1z4a-8a+=33p@2dx&p+%i'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
 	'uva-cs3240-b-24.herokuapp.com',
@@ -48,6 +47,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -86,17 +86,21 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'dfkj1m5coir5c8',
+    #     'USER': 'rbutnoehurplbi',
+    #     'PASSWORD': '2a4fdcd8746c6b07986143e526025f96306a371b0fab4dcb160570077922a453',
+    #     'HOST': 'ec2-35-170-146-54.compute-1.amazonaws.com',
+    #     'PORT':  5432,
+    # }
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dfkj1m5coir5c8',
-        'USER': 'rbutnoehurplbi',
-        'PASSWORD': '2a4fdcd8746c6b07986143e526025f96306a371b0fab4dcb160570077922a453',
-        'HOST': 'ec2-35-170-146-54.compute-1.amazonaws.com',
-        'PORT':  5432,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase'
     }
+
 }
 
-DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
 
 # Password validation
