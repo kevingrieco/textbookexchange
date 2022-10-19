@@ -24,19 +24,39 @@
       {% endif %}
   </nav>
 <body>
-  <div class="px-3 pt-3">
-  <h1>University of Virginia Textbook Exchange</h1>
-  {% if user.is_authenticated %}
-    <p>Welcome, {{ user|title }}. You are logged in!</p>
-    {% block content %} {% endblock content %}
-    <br><br>
-    <a href="/accounts/logout">Logout</a>
-  {% elif request.path == "/accounts/google/login/" %}
-    {% block login_info %} {% endblock login_info %}
-  {% else %}
-    <p>Login to get started exchanging your textbooks.</p>
-    <a href="{% provider_login_url 'google' %}">Login With Google</a>
-  {% endif %}
-  </div>
+  <form>
+    <div
+      class="p-5 text-center bg-image"
+      style="
+        background-image: url('https://collegeinfogeek.com/wp-content/uploads/2014/11/how-to-read-a-textbook-featured.jpg');
+        height: 400px;
+      "
+    >
+      <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+        <div class="d-flex justify-content-center align-items-center h-100">
+          <div class="text-white">
+            <h1 class="display-3">University of Virginia Textbook Exchange</h1>
+            <br>
+            <h5 class="mb-3">Sell and Buy Textbooks for UVA Courses</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="p-5 text-center bg-light">
+      <h6 class="mb-3">  
+        {% if user.is_authenticated %}
+          <p>Welcome, {{ user|title }}. You are logged in!</p>
+          {% block content %} {% endblock content %}
+          <br><br>
+          <a href="/accounts/logout">Logout</a>
+        {% elif request.path == "/accounts/google/login/" %}
+          {% block login_info %} {% endblock login_info %}
+        {% else %}
+          <p>Login to get started exchanging your textbooks.</p>
+          <a href="{% provider_login_url 'google' %}">Login With Google</a>
+        {% endif %}
+      </h6>
+    </div>
+  </form>
 </body>
 </html>
