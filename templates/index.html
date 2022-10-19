@@ -1,35 +1,16 @@
-{% load socialaccount %}
-{% load static %}
-{% load bootstrap5 %}
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
-<html>
-  <nav class="navbar navbar-expand-lg navbar-light bg-primary text-light">
-    <ul class="d-flex justify-content-between navbar-nav mr-auto px-3">
-      <li class="nav-item active px-3">Search</li>
-      {% if user.is_authenticated %}
-        <li class="nav-item px-3 me-auto">Profile</li>
-      {% else %}
-        <li class="nav-item px-3 me-auto">Login</li>
-      {% endif %}
-      <li class="nav-item px-3">Inbox</li>
-      <li class="nav-item px-3">Submit Textbook</li>
-  </nav>
-<body>
-  <div class="ps-3 pt-3">
-  <h1>University of Virginia Textbook Exchange</h1>
-  {% if user.is_authenticated %}
-    <p>Welcome, {{ user|title }}. You are logged in!</p>
+{% extends 'base.html' %}
 
-    <form class="text-center">
-      <input name="search" type="text" placeholder="Search">
+{% block content %}
+    <form class="text-center" class="form-group">
+      <input name="search" type="text" placeholder="Search..." class="form-control">
+      <input name="submit" type="submit" value="Search" class="form-control">
     </form>
-    <a href="/accounts/logout">Logout</a>
-  {% else %}
-    <p>Login to get started exchanging your textbooks.</p>
-    <a href="{% provider_login_url 'google' %}">Login With Google</a>
-  {% endif %}
-  </div>
-</body>
-</html>
+    {% if textbooks %}
+    Browse available textbooks:
+      <div class="d-flex justify-content-center flex-wrap p-2">
+      {% for textbook in textbooks %}
+        <div class="list-group-item" style="flex: 100%;">{{ textbook }}</div>
+      {% endfor %}
+      </div>
+    {% endif %}
+{% endblock %}

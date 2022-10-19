@@ -1,0 +1,42 @@
+{% load static %}
+{% load bootstrap5 %}
+{% load socialaccount %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+<html>
+  <nav class="navbar navbar-expand-lg navbar-light bg-primary text-light">
+    <ul class="navbar-nav mr-auto px-3" style="white-space: no-wrap;">
+      {% if user.is_authenticated %}
+        <li class="nav-item active px-3 d-inline-block" style="white-space: no-wrap;">
+          <a href="{% url 'index' %}" class="text-decoration-none text-light">Search</a></li>
+        <li class="nav-item px-3 me-auto d-inline-block" style="white-space: no-wrap;">Profile</li>
+        <li class="nav-item px-3 d-inline-block" style="white-space: no-wrap;">Inbox</li>
+        <li class="nav-item px-3 d-inline-block" style="white-space: no-wrap;">
+          <a href="{% url 'post_textbook:choose_department' %}" class="text-decoration-none text-light">Submit Textbook</a>
+        </li>
+      {% else %}
+        <li class="nav-item px-3 me-auto d-inline-block" style="white-space: no-wrap;">
+          <a href="{% url 'index' %}" class="text-decoration-none text-light">Login</a></li>
+        </li>
+      {% endif %}
+  </nav>
+<body>
+  <div class="px-3 pt-3">
+  <h1>University of Virginia Textbook Exchange</h1>
+  {% if user.is_authenticated %}
+    <p>Welcome, {{ user|title }}. You are logged in!</p>
+    {% block content %} {% endblock content %}
+    <br><br>
+    <a href="/accounts/logout">Logout</a>
+  {% elif request.path == "/accounts/google/login/" %}
+    {% block login_info %} {% endblock login_info %}
+  {% else %}
+    <p>Login to get started exchanging your textbooks.</p>
+    <a href="{% provider_login_url 'google' %}">Login With Google</a>
+  {% endif %}
+  </div>
+</body>
+</html>
