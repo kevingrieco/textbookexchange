@@ -7,15 +7,17 @@
 {% bootstrap_javascript %}
 
 <html>
-  <nav class="navbar navbar-expand-lg navbar-light bg-primary text-light">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-light">
     <ul class="navbar-nav mr-auto px-3" style="white-space: no-wrap;">
       {% if user.is_authenticated %}
         <li class="nav-item active px-3 d-inline-block" style="white-space: no-wrap;">
-          <a href="{% url 'index' %}" class="text-decoration-none text-light">Search</a></li>
-        <li class="nav-item px-3 me-auto d-inline-block" style="white-space: no-wrap;">Profile</li>
-        <li class="nav-item px-3 d-inline-block" style="white-space: no-wrap;">Inbox</li>
+          <a href="{% url 'index' %}" class="nav-link" >Search</a></li>
+        <li class="nav-item px-3 me-auto d-inline-block" style="white-space: no-wrap;">
+          <a href="{% url 'index' %}" class="nav-link" >Profile</a></li>
         <li class="nav-item px-3 d-inline-block" style="white-space: no-wrap;">
-          <a href="{% url 'post_textbook:choose_department' %}" class="text-decoration-none text-light">Submit Textbook</a>
+          <a href="{% url 'index' %}" class="nav-link" >Inbox</a></li>
+        <li class="nav-item px-3 d-inline-block" style="white-space: no-wrap;">
+          <a href="{% url 'post_textbook:choose_department' %}" class="nav-link">Submit Textbook</a>
         </li>
       {% else %}
         <li class="nav-item px-3 me-auto d-inline-block" style="white-space: no-wrap;">
