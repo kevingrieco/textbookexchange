@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="d-flex justify-content-center flex-wrap p-2">
+    {% for textbook in object_list %}
+      <div class="list-group-item" style="flex: 100%;">{{ textbook }}</div>
+    {% endfor %}
+    </div>
+{% endblock %}

@@ -18,9 +18,12 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 from django.contrib.auth.views import LogoutView
 
+from .views import SearchResultsView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name="index.html"), name='index'),
+    path('search/', SearchResultsView.as_view(), name='search_results'),
     path('accounts/', include('allauth.urls')),
     path('logout', LogoutView.as_view()),
     path('post_textbook/', include('post_textbook.urls')),

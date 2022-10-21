@@ -45,9 +45,10 @@
   </div>
   <div class="p-5 text-center bg-light">
     <h6 class="mb-3">  
+      {% block content %} {% endblock content %}
       {% if user.is_authenticated %}
         <p>Welcome, {{ user|title }}. You are logged in!</p>
-        {% block content %} {% endblock content %}
+        
         <br><br>
         <a href="/accounts/logout">Logout</a>
       {% elif request.path == "/accounts/google/login/" %}
