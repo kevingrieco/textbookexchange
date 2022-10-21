@@ -12,4 +12,14 @@ class Textbook(models.Model):
     year = models.IntegerField()
 
     def __str__(self):
-        return f"{self.title}, Edition {self.edition} ({self.year}) -- {self.author}"
+        edp = 'st'
+        if self.edition % 10 == 1:
+            edp == 'st'
+        elif self.edition % 10 == 2:
+            edp = 'nd'
+        elif self.edition % 10 == 3:
+            edp = 'rd'
+        else:
+            edp = 'th'
+        
+        return f"{self.title}, {self.edition}{edp} Edition  ({self.year}) -- {self.author}"

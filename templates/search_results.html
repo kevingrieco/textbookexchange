@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <marquee behavior="alternate" scrollamount="3" style="font-size: 50pt">textbooks avialable:</marquee>
     <div class="d-flex justify-content-center flex-wrap p-2">
     {% for textbook in object_list %}
       <div class="list-group-item" style="flex: 100%;">{{ textbook }}</div>
