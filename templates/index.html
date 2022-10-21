@@ -2,7 +2,7 @@
 
 {% block content %}
     <form action="{% url 'search_results' %}" method="get" class="text-center">
-      <input name="q" type="text" placeholder="Search..." class="form-control">
+      <input name="q" type="text" placeholder="Search by title or author (or leave blank to see all textbooks)" class="form-control">
       <input name="submit" type="submit" value="Search" class="form-control">
     </form>
     {% if textbooks %}
