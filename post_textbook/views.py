@@ -1,9 +1,7 @@
 
 from django.shortcuts import render, redirect
-from .models import Textbook
+from .models import Department, Course, Textbook
 import requests
-
-
 
 # Create your views here.
 
@@ -37,8 +35,21 @@ def load_courses(request):
     return render(request, 'post_textbook/choose_course.html', context)
 
 def textbook_info(request):
-    department = request.POST.get('department')
-    course = request.POST.get('course')
+    department_name = request.POST.get('department')
+    course_name = request.POST.get('course')
+
+    if Department.objects.filter(name=department_name).exists():
+        department = Department.objects.get(name=department_name)
+    else:
+        department = Department(name=department_name)
+        department.save()
+    if Course.objects.filter(name=course_name).exists():
+        course = Course.objects.get(name=course_name)
+    else:
+        course = Course(name=course_name, department=department)
+        course.save()
+    
+
     title = request.POST.get('title')
     author = request.POST.get('author')
     publisher = request.POST.get('publisher')
@@ -53,7 +64,7 @@ def textbook_info(request):
         edition=edition, 
         year=year)
     new_textbook.save()
-    return redirect('courselist:index')
+    return redirect('index')
 
 # def save_course_info(request):
 #     course = request.POST.get('course')

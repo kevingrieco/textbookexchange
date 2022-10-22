@@ -1,13 +1,16 @@
-import requests
-
+from django.shortcuts import render
+from post_textbook.models import Department, Textbook
 from django.views.generic import ListView
 from django.db.models import Q
 
-from post_textbook.models import Textbook
 
-class HomePageView(ListView):
-    model = Textbook
-    template_name = 'index.html'
+def index_view(request):
+    departments = Department.objects.all()
+    context = {
+        'departments': departments,
+    }
+    return render(request, 'index.html', context)
+
 
 class SearchResultsView(ListView):
     model = Textbook

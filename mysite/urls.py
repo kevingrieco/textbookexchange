@@ -15,14 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import TemplateView
 from django.contrib.auth.views import LogoutView
-
-from .views import SearchResultsView, HomePageView
+from .views import SearchResultsView, index_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', HomePageView.as_view(), name='index'),
+    path('', index_view, name='index'),
     path('search/', SearchResultsView.as_view(), name='search_results'),
     path('accounts/', include('allauth.urls')),
     path('logout', LogoutView.as_view()),

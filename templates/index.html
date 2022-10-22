@@ -5,12 +5,90 @@
       <input name="q" type="text" placeholder="Search by title or author (or leave blank to see all textbooks)" class="form-control">
       <input name="submit" type="submit" value="Search" class="form-control">
     </form>
-    {% if textbooks %}
-    Browse available textbooks:
-      <div class="d-flex justify-content-center flex-wrap p-2">
-      {% for textbook in textbooks %}
-        <div class="list-group-item" style="flex: 100%;">{{ textbook }}</div>
-      {% endfor %}
-      </div>
+    {% if departments %}
+    Browse available textbooks by department:
+      {% comment %} <div class="accordion" id="browseTextbooks">
+        <div class="card">
+          {% for department in departments %}
+          <div class="card-header" id="{{department}}">
+            <h2 class="mb-0">
+              <button class="btn" type="button" data-bs-toggle="collapse" 
+                      data-bs-target="#{{department}}CourseCollapse" aria-expanded="false" 
+                      aria-controls="{{department}}CourseCollapse">
+                {{ department }}
+              </button>
+            </h2>
+          </div>
+          <div id="{{department}}CourseCollapse" class="collapse show accordion" aria-labelledby="{{department}}" data-bs-parent="#browseTextbooks">
+            <div class="card card-body">
+              {% for course in department.courses.all %}
+              <button class="btn" id="{{course}}" type="button" data-bs-toggle="collapse" 
+              data-bs-target="#{{course}}TextCollapse" aria-expanded="false" 
+              aria-controls="{{course}}TextCollapse">
+                {{ course }}
+              </button>
+              <div id="{{course}}TextCollapse" class="collapse show" aria-labelledby="{{course}}" data-bs-parent="#{{department}}">
+                <div class="card-body">
+                  {% for textbook in course.textbooks.all %}
+                  <button class="btn" type="button">
+                    {{ textbook }}
+                  </button>
+                  {% endfor %}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div> {% endcomment %}
     {% endif %}
+
+    <div class="accordion" id="browseTextbooks">
+      
+      <div class="accordion-item">
+        {% for department in departments %}
+          <h2 class="accordion-header" id="{{department}}">
+              <button class="accordion-button" type="button" 
+                      data-bs-toggle="collapse" data-bs-target="#collapse{{department}}" 
+                      aria-expanded="true" aria-controls="collapse{{department}}">
+                  {{department}}
+              </button>
+          </h2>
+          <div id="collapse{{department}}" class="accordion-collapse collapse">
+            
+            <div class="accordion-body">
+              {% for course in department.courses.all %}
+                  <div class="accordion" id="begin{{course}}">
+                    
+                      <div class="accordion-item">
+                          <h2 class="accordion-header" id="{{course.id}}">
+                              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{course}}" aria-expanded="false" aria-controls="collapse{{department}}">
+                                  {{course}}
+                              </button>
+                          </h2>
+                          <div id="collapse{{course}}" class="accordion-collapse collapse show">
+                              <div class="accordion-body">
+                                {% for textbook in course.textbooks.all %}
+                                  <p id="{{textbook}}">
+                                    {{ textbook }}
+                                  </p>
+                                {% endfor %}
+                              </div>
+                          </div>
+                      </div>
+                      
+                  </div>
+                  {% endfor %}
+              </div>
+              
+            </div>
+            {% endfor %}
+          </div>
+          
+        </div>
+
+
+  
+
 {% endblock %}
