@@ -3,7 +3,7 @@ from .models import Textbook, Course, Department
 
 # Register your models here.
 class TextbookAdmin(admin.ModelAdmin):
-    list_display = ('title', 'edition', 'year', 'author', 'department', 'course', 'publisher','ISBN')
+    list_display = ('title', 'edition', 'year', 'author', 'department', 'course', 'publisher')
 
 admin.site.register(Textbook, TextbookAdmin)
 admin.site.register(Course)
