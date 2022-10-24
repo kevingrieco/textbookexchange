@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if object_list %}
+    <marquee behavior="alternate" scrollamount="3" style="font-size: 50pt">textbooks avialable:</marquee>
+    <div class="d-flex justify-content-center flex-wrap p-2">
+    {% for textbook in object_list %}
+      <div class="list-group-item" style="flex: 100%;">{{ textbook }}</div>
+    {% endfor %}
+    </div>
+    {% else %}
+    <marquee behavior="alternate" scrollamount="3" style="font-size: 50pt">no textbooks matched your search :(</marquee>
+    {% endif %}
+{% endblock %}

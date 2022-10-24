@@ -1,29 +1,52 @@
-{% load socialaccount %}
-{% load static %}
-{% load bootstrap5 %}
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
-<html>
-  <nav class="navbar navbar-expand-lg navbar-light bg-primary text-light">
-    <ul class="d-flex justify-content-between navbar-nav mr-auto px-3">
-      <li class="nav-item active px-3">Search</li>
-      {% if user.is_authenticated %}
-        <li class="nav-item px-3 me-auto">Profile</li>
-      {% else %}
-        <li class="nav-item px-3 me-auto">Login</li>
-      {% endif %}
-  </nav>
-<body>
-  <div class="ps-3 pt-3">
-  <h1>University of Virginia Textbook Exchange</h1>
-  {% if user.is_authenticated %}
-    <p>Welcome, {{ user|title }}. You are logged in!</p>
-    <a href="/accounts/logout">Logout</a>
-  {% else %}
-    <p>Login to get started exchanging your textbooks.</p>
-    <a href="{% provider_login_url 'google' %}">Login With Google</a>
-  {% endif %}
-  </div>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+    <form action="{% url 'search_results' %}" method="get" class="text-center">
+      <input name="q" type="text" placeholder="Search by title or author (or leave blank to see all textbooks)" class="form-control">
+      <input name="submit" type="submit" value="Search" class="form-control">
+    </form>
+    {% if departments %}
+    <br><br>
+    Browse available textbooks by department:
+    <br><br><br>
+    <div class="accordion" id="browseTextbooks">
+      <div class="accordion-item">
+        {% for department in departments %}
+          <h2 class="accordion-header" id="{{department}}">
+              <button class="accordion-button" type="button" 
+                      data-bs-toggle="collapse" data-bs-target="#collapse{{department}}" 
+                      aria-expanded="true" aria-controls="collapse{{department}}">
+                  {{department}}
+              </button>
+          </h2>
+
+          <div id="collapse{{department}}" class="accordion-collapse collapse">
+            <div class="accordion-body">
+              {% for course in department.courses.all %}
+                  <div class="accordion" id="begin{{course}}">
+                      <div class="accordion-item">
+                          <h2 class="accordion-header" id="{{course.id}}">
+                              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{course}}" aria-expanded="false" aria-controls="collapse{{department}}">
+                                  {{course}}
+                              </button>
+                          </h2>
+
+                          <div id="collapse{{course}}" class="accordion-collapse collapse show">
+                              <div class="accordion-body">
+                                {% for textbook in course.textbooks.all %}
+                                  <p id="{{textbook}}">
+                                    {{ textbook }}
+                                  </p>
+                                {% endfor %}
+                              </div>
+                          </div>
+                      </div> 
+                  </div>
+                  {% endfor %}
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+    {% endif %}
+{% endblock %}
