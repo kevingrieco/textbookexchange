@@ -55,6 +55,7 @@ def textbook_info(request):
     publisher = request.POST.get('publisher')
     edition = request.POST.get('edition')
     year = request.POST.get('year')
+    ISBN = request.POST.get('ISBN')
     new_textbook = Textbook(
         department=department, 
         course=course, 
@@ -62,7 +63,8 @@ def textbook_info(request):
         author=author, 
         publisher=publisher, 
         edition=edition, 
-        year=year)
+        year=year,
+        ISBN=ISBN)
     new_textbook.save()
     return redirect('index')
 
