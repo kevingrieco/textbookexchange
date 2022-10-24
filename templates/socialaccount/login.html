@@ -1,16 +1,9 @@
 
+{% extends 'base.html' %}
 
-{% load socialaccount %}
-{% load static %}
-{% load bootstrap5 %}
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
-
+{% block login_info %}
 {% load i18n %}
-
-<h1 class="ps-3 pt-3">Sign In</h1>
-
+<hr>
 <div class="ps-3 pt-3">
         {% if process == "connect" %}
     <h1>{% blocktrans with provider.name as provider %}Connect {{ provider }}{% endblocktrans %}</h1>
@@ -27,9 +20,9 @@
     <button type="submit">{% trans "Continue" %}</button>
     </form>
 </div>
+<hr>
 
 
 
-{% block content %}
 
-{% endblock %}
+{% endblock login_info %}
