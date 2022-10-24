@@ -1,0 +1,64 @@
+{% load static %}
+{% load bootstrap5 %}
+{% load socialaccount %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+<html>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-light">
+    <ul class="navbar-nav mr-auto px-3" style="white-space: no-wrap;">
+      {% if user.is_authenticated %}
+        <li class="nav-item active px-3 d-inline-block" style="white-space: no-wrap;">
+          <a href="{% url 'index' %}" class="nav-link" >Search</a></li>
+        <li class="nav-item px-3 me-auto d-inline-block" style="white-space: no-wrap;">
+          <a href="{% url 'index' %}" class="nav-link" >Profile</a></li>
+        <li class="nav-item px-3 d-inline-block" style="white-space: no-wrap;">
+          <a href="{% url 'index' %}" class="nav-link" >Inbox</a></li>
+        <li class="nav-item px-3 d-inline-block" style="white-space: no-wrap;">
+          <a href="{% url 'post_textbook:choose_department' %}" class="nav-link">Submit Textbook</a>
+        </li>
+      {% else %}
+        <li class="nav-item px-3 me-auto d-inline-block" style="white-space: no-wrap;">
+          <a href="{% url 'index' %}" class="text-decoration-none text-light">Login</a></li>
+        </li>
+      {% endif %}
+  </nav>
+<body>
+  <div
+    class="p-5 text-center bg-image"
+    style="
+      background-image: url('https://collegeinfogeek.com/wp-content/uploads/2014/11/how-to-read-a-textbook-featured.jpg');
+      height: 400px;
+    "
+  >
+    <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+      <div class="d-flex justify-content-center align-items-center h-100">
+        <div class="text-white">
+          <h1 class="display-3">University of Virginia Textbook Exchange</h1>
+          <br>
+          <h5 class="mb-3">Sell and Buy Textbooks for UVA Courses</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="p-5 text-center bg-light">
+    <h6 class="mb-3">  
+      {% block content %} {% endblock content %}
+      {% if user.is_authenticated %}
+        <p>Welcome, {{ user|title }}. You are logged in!</p>
+        
+        <br><br>
+        <a href="/accounts/logout">Logout</a>
+      {% elif request.path == "/accounts/google/login/" %}
+        {% block login_info %} {% endblock login_info %}
+      {% else %}
+        <p>Login to get started exchanging your textbooks.</p>
+        <a href="{% provider_login_url 'google' %}">Login With Google</a>
+      {% endif %}
+    </h6>
+  </div>
+</body>
+</html>
+
