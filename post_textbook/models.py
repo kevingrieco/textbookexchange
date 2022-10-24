@@ -34,4 +34,4 @@ class Textbook(models.Model):
         else:
             edp = 'th'
         
-        return f"{self.title},{self.edition}{edp} Edition  ({self.year}) -- {self.author}"
+        return f"{self.title}, {self.edition}{edp} Edition  ({self.year}) -- {self.author}"
