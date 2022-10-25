@@ -21,7 +21,7 @@ class Textbook(models.Model):
     author = models.CharField(max_length=200)
     publisher = models.CharField(max_length=200)
     edition = models.IntegerField()
-    year = models.IntegerField(max_length=4)
+    year = models.IntegerField()
     ISBN = models.IntegerField()
 
     def __str__(self):
