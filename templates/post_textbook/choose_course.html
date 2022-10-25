@@ -8,6 +8,7 @@
             Change Department
         </button>
     </a>
+    <div style="background: rgba(234, 135, 29, 0.661); posit">
     <form method="post" action="{% url 'post_textbook:textbook_details' %}" class="form-group">
       {% csrf_token %}
       <br><br>
@@ -33,6 +34,7 @@
   
       <input type="submit" value="Upload">
     </form><br><br>
+  </div>
 
         
 
