@@ -47,7 +47,7 @@
     <h6 class="mb-3">  
       {% block content %} {% endblock content %}
       {% if user.is_authenticated %}
-        <p>Welcome, {{ user|title }}. You are logged in!</p>
+        <p style="color: orangered">Welcome, {{ user|title }}. You are logged in!</p>
         
         <br><br>
         <a href="/accounts/logout">Logout</a>
