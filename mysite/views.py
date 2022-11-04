@@ -5,7 +5,7 @@ from django.db.models import Q
 
 
 def index_view(request):
-    departments = Department.objects.all()
+    departments = Department.objects.order_by('name')
     context = {
         'departments': departments,
     }

@@ -22,7 +22,7 @@
 
           <div id="collapse{{department}}" class="accordion-collapse collapse">
             <div class="accordion-body">
-              {% for course in department.courses.all %}
+              {% for course in department.courses.all|dictsort:"name" %}
                   <div class="accordion" id="begin{{course}}">
                       <div class="accordion-item">
                           <h2 class="accordion-header" id="{{course.id}}">
@@ -33,7 +33,7 @@
 
                           <div id="collapse{{course}}" class="accordion-collapse collapse show">
                               <div class="accordion-body">
-                                {% for textbook in course.textbooks.all %}
+                                {% for textbook in course.textbooks.all|dictsort:"title" %}
                                   <p id="{{textbook}}">
                                     {{ textbook }}
                                   </p>
