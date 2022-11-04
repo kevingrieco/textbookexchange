@@ -19,6 +19,9 @@
         <li class="nav-item px-3 d-inline-block" style="white-space: no-wrap;">
           <a href="{% url 'post_textbook:choose_department' %}" class="nav-link">Submit Textbook</a>
         </li>
+        <li>
+         <a href="/accounts/logout">Logout</a>
+        </li>
       {% else %}
         <li class="nav-item px-3 me-auto d-inline-block" style="white-space: no-wrap;">
           <a href="{% url 'index' %}" class="text-decoration-none text-light">Login</a></li>
@@ -43,12 +46,11 @@
       </div>
     </div>
   </div>
-  <div class="p-5 text-center bg-light">
+  <div class="p-5 text-center bg-dark">
     <h6 class="mb-3">  
       {% block content %} {% endblock content %}
       {% if user.is_authenticated %}
-        <p>Welcome, {{ user|title }}. You are logged in!</p>
-        
+        <p style="color: orangered">Welcome, {{ user|title }}. You are logged in!</p>
         <br><br>
         <a href="/accounts/logout">Logout</a>
       {% elif request.path == "/accounts/google/login/" %}

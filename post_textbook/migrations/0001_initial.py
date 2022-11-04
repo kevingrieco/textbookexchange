@@ -35,6 +35,7 @@ class Migration(migrations.Migration):
                 ('publisher', models.CharField(max_length=200)),
                 ('edition', models.IntegerField()),
                 ('year', models.IntegerField()),
+                ('ISBN', models.IntegerField()),
                 ('course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='textbooks', to='post_textbook.course')),
                 ('department', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='textbooks', to='post_textbook.department')),
             ],

@@ -22,6 +22,7 @@ class Textbook(models.Model):
     publisher = models.CharField(max_length=200)
     edition = models.IntegerField()
     year = models.IntegerField()
+    ISBN = models.IntegerField()
 
     def __str__(self):
         if self.edition >= 10 or self.edition <= 20:
@@ -35,4 +36,5 @@ class Textbook(models.Model):
         else:
             edp = 'th'
         
-        return f"{self.title}, {self.edition}{edp} Edition  ({self.year}) -- {self.author}"
+        #return f"{self.title}, {self.edition}{edp} Edition  ({self.year}) -- {self.author}"
+        return f"{self.title}, {self.edition}{edp} Edition ({self.year}) by {self.author}. ISBN: {self.ISBN}."
