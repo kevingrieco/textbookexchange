@@ -21,11 +21,12 @@ class Textbook(models.Model):
     author = models.CharField(max_length=200)
     publisher = models.CharField(max_length=200)
     edition = models.IntegerField()
-    year = models.IntegerField(max_length=4)
+    year = models.IntegerField()
 
     def __str__(self):
-        edp = 'st'
-        if self.edition % 10 == 1:
+        if self.edition >= 10 or self.edition <= 20:
+            edp = 'th'
+        elif self.edition % 10 == 1:
             edp == 'st'
         elif self.edition % 10 == 2:
             edp = 'nd'
