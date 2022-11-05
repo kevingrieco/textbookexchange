@@ -1,6 +1,9 @@
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
+
+
 class Department(models.Model):
     name = models.CharField(max_length=200)
 
@@ -17,13 +20,14 @@ class Course(models.Model):
 class Textbook(models.Model):
     department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name="textbooks")
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="textbooks")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="textbooks")
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=200)
     publisher = models.CharField(max_length=200)
     edition = models.IntegerField()
     year = models.IntegerField()
     ISBN = models.IntegerField()
-
+    
     def __str__(self):
         if self.edition >= 10 or self.edition <= 20:
             edp = 'th'

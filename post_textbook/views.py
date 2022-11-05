@@ -49,6 +49,7 @@ def textbook_info(request):
         course = Course(name=course_name, department=department)
         course.save()
     
+    user = request.user
 
     title = request.POST.get('title')
     author = request.POST.get('author')
@@ -60,12 +61,13 @@ def textbook_info(request):
     new_textbook = Textbook(
         department=department, 
         course=course, 
+        user=user,
         title=title, 
         author=author, 
         publisher=publisher, 
         edition=edition, 
         year=year,
-        ISBN = ISBN
+        ISBN=ISBN
         )
     new_textbook.save()
     return redirect('index')

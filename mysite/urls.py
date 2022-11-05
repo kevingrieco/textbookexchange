@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.views import LogoutView
 from .views import SearchResultsView, index_view
+from user_profile.views import profile
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +26,6 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('logout', LogoutView.as_view()),
     path('post_textbook/', include('post_textbook.urls')),
+    path('profile/', include('user_profile.urls')),
+    path('inbox/', include('direct_messages.urls')),
 ]
