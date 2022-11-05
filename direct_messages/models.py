@@ -12,6 +12,14 @@ class Conversation(models.Model):
     unread = models.BooleanField(default=False)
     user_a = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="user_b_messages")
     user_b = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="user_a_messages")
+    latest = models.DateTimeField(default=datetime.now, blank=True)
+
+    def get_recipient(self, current_user):
+        if self.user_a == current_user:
+            recipient = self.user_b
+        else:
+            recipient = self.user_a
+        return recipient
 
 class Message(models.Model):
 

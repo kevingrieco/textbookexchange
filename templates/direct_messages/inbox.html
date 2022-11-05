@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<div class="bg-light text-dark p-3 mb-2">
+    {% if conversations %}
+    {% for conversation in conversations.all|dictsort:"latest" reversed %}
+        {{conversation.}}
+    {% endfor %}
+    {% endif %}
+</div>
+
+
+
+
+
+{% endblock %}
