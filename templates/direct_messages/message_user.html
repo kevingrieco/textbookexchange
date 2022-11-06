@@ -5,9 +5,14 @@
 
 
 <div class="bg-light text-dark p-3 mb-2">
+    <button class="btn d-flex justify-content-start btn-secondary">
+        <a href="{% url 'direct_messages:inbox' %}" class="text-light" style="text-decoration:none;">Back to Inbox</a>
+    </button>
     {% if conversation.messages %}
+    {{recipient}}
+    <hr>
     {% for message in conversation.messages.all|dictsort:"time" %}
-    
+    <div class="m-3">
         {% if message.sender == sender %}
         <div style="flex-direction:column;">
             <div class="d-flex justify-content-end">
@@ -27,6 +32,7 @@
                 {{message.time}}
             </div>
         {% endif %}
+    </div>
     {% endfor %}
     {% endif %}
     <form method="post" action="{% url 'direct_messages:send_message' %}" class="form-group mt-3">
