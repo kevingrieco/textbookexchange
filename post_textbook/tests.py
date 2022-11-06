@@ -7,7 +7,7 @@ class QuestionIndexViewTests(TestCase):
         """
         If no textbook exist, an appropriate message is displayed.
         """
-        response = self.client.get(reverse('templates:index'))
+        response = self.client.get(reverse('index'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "No textbooks are available.")
         self.assertQuerysetEqual(response.context['current_textbooks'], [])
