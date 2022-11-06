@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<div class="bg-light text-dark p-3 mb-2" style="border-radius:10px;">
+    {% if conversations %}
+    {% for conversation in conversations|dictsortreversed:"latest" %}
+    <a href="{{conversation.pk}}" class="text-dark" style="text-decoration:none;">
+        <div class="d-flex justify-content-between border border-dark p-2 m-2" style="border-radius:10px;">
+        {% if conversation.messages %}
+        <div>
+            {% if not user == conversation.user_a %}
+            <strong>{{conversation.user_a}}</strong>
+            {% else %}
+            <strong>{{conversation.user_b}}</strong>
+            {% endif %}
+        </div>
+        <div>
+            {{conversation.get_latest_message.content}}
+        </div>
+        <div>
+            {{conversation.get_latest_message.time}}
+        </div>
+        {% endif %}
+        </div>
+    </a>
+        {% endfor %}
+    {% else %}
+        No current conversations.
+    {% endif %}
+</div>
+
+
+
+
+
+{% endblock %}

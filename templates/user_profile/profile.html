@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="text-light">
+{% if social_account.0.extra_data %}
+<img src="{{ social_account.0.extra_data.picture }}" style="border-radius:50%;">
+<br><br>
+<p>Name: {{social_account.0.extra_data.name}}</p>
+<p>Email: {{social_account.0.extra_data.email}}</p>
+
+{% else %}
+<p>Name: {{user.username}}</p>
+{% if user.email%}
+<p>Email: {{user.email}}</p>
+{% endif %}
+{% endif %}
+{% if user.textbooks %}
+<p>My Textbooks:</p>
+{% for textbook in user.textbooks.all %}
+<div class="bg-light text-dark p-3 m-3">
+      <p id="{{textbook}}">
+        {{ textbook }}
+      </p>
+</div>
+{% endfor %}
+{% else %}
+<p>You have not posted any textbooks to sell.</p>
+<p><a href="{% url 'post_textbook:choose_department' %}">Post a Textbook</a></p>
+{% endif %}
+</div>
+
+
+
+{% endblock %}

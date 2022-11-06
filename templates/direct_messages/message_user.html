@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<div class="bg-light text-dark p-3 mb-2">
+    <button class="btn d-flex justify-content-start btn-secondary">
+        <a href="{% url 'direct_messages:inbox' %}" class="text-light" style="text-decoration:none;">Back to Inbox</a>
+    </button>
+    {% if conversation.messages %}
+    {% if full_name is not None %}
+    {{full_name}}
+    {% else %}
+    {{ recipient }}
+    {% endif %}
+    <hr>
+    {% for message in conversation.messages.all|dictsort:"time" %}
+    <div class="m-3">
+        {% if message.sender == sender %}
+        <div style="flex-direction:column;">
+            <div class="d-flex justify-content-end">
+                <div class="bg-primary p-3 text-light" style="border-radius:5px;">
+                    {{message.content}}
+                </div>
+                <div>
+                    {{message.time}}
+                </div>
+            </div>
+        </div>
+        {% else %}
+            <div class="d-flex justify-content-start">
+                <div class="bg-light border p-3 border-dark text-dark" style="border-radius:5px;">
+                    {{message.content}}
+                </div>
+                {{message.time}}
+            </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+    {% endif %}
+    <form method="post" action="{% url 'direct_messages:send_message' %}" class="form-group mt-3">
+        {% csrf_token %}
+        <div class="input-group">
+            <input name="recipient" id="recipient" value="{{recipient}}" hidden>
+            <textarea name="content" id="content" rows="5" cols="47" placeholder="Begin typing..." class="form-control" style="resize:none;"></textarea>
+            <div class="input-group-append w-100">
+                <button type="submit" class="btn btn-primary text-light w-100" style="margin: 0 auto;text-align: right;width: 50%;">
+                    <i class="fa-solid fa-arrow-turn-up"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+{% endblock %}

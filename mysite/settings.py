@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
+# SECURITY WAsRNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-c+ge1n@ceuzv+8#de8x@4_f7oyx-+1z4a-8a+=33p@2dx&p+%i'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -38,6 +38,9 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS = [
     'post_textbook.apps.PostTextbookConfig',
+    'user_profile.apps.UserProfileConfig',
+    'direct_messages.apps.DirectMessagesConfig',
+    'fontawesomefree',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
