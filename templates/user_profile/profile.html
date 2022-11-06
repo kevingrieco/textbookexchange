@@ -18,7 +18,7 @@
 {% if user.textbooks %}
 <p>My Textbooks:</p>
 {% for textbook in user.textbooks.all %}
-<div class="bg-light text-dark">
+<div class="bg-light text-dark p-3 m-3">
       <p id="{{textbook}}">
         {{ textbook }}
       </p>

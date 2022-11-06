@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from .models import Conversation, Message 
 from django.contrib.auth import get_user_model
+from datetime import datetime
 
 # Create your views here.
 
@@ -18,10 +19,29 @@ def _conversation_finder(sender, recipient):
         conversation.save()
     return conversation
 
+def _recipient_str(user, conversation):
+    recipient_user = 'user_a' if conversation.user_a != user else 'user_b'
+    if recipient_user == 'user_a':
+        if conversation.user_a.first_name and conversation.user_a.last_name:
+            recipient = conversation.user_a.first_name + " " + conversation.user_a.last_name
+        else:
+            recipient = conversation.user_a.username
+    elif recipient_user == 'user_b':
+        if conversation.user_b.first_name and conversation.user_b.last_name:
+            recipient = conversation.user_b.first_name + " " + conversation.user_b.last_name
+        else:
+            recipient = conversation.user_b.username
+    return recipient
+
 def view_conversation(request, pk):
     sender = request.user
-    conversation = Conversation.objects.get(pk=pk)
-    recipient = conversation.user_a.username if conversation.user_a != request.user else conversation.user_b.username
+    try:
+        conversation = Conversation.objects.get(pk=pk)
+    except Conversation.DoesNotExist:
+        return redirect('direct_messages:inbox')
+    if (conversation.user_a != sender and conversation.user_b != sender):
+        return redirect('direct_messages:inbox')
+    recipient = _recipient_str(request.user, conversation)
     context = {
         'recipient': recipient,
         'sender': sender,
@@ -51,13 +71,13 @@ def send_message(request):
         conversation=conversation,
     )
     message.save()
+    conversation.latest = message.time
+    conversation.save()
     return redirect('direct_messages:view_conversation', pk=conversation.pk)
 
 
 def inbox(request):
-    conversations = []
-    conversations.append(request.user.user_a_messages)
-    conversations.append(request.user.user_b_messages)
+    conversations = Conversation.objects.filter(user_a=request.user) | Conversation.objects.filter(user_b=request.user)
     context = {
         'conversations': conversations,
     }

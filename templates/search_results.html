@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
+  <button class="btn d-flex justify-content-start btn-secondary">
+    <a href="{% url 'index' %}" class="text-light" style="text-decoration:none;">Back to Home</a>
+  </button>
     {% if object_list %}
-    <marquee behavior="alternate" scrollamount="3" style="font-size: 50pt">textbooks avialable:</marquee>
+    <marquee behavior="alternate" scrollamount="3" style="font-size: 50pt">textbooks available:</marquee>
     <div class="d-flex justify-content-center flex-wrap p-2">
     {% for textbook in object_list %}
       <div class="list-group-item" style="flex: 100%;">{{ textbook }}</div>
