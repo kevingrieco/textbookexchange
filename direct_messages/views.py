@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect
-from django.views import View
 from .models import Conversation, Message 
 from django.contrib.auth import get_user_model
-from datetime import datetime
 
 # Create your views here.
 

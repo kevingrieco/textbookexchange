@@ -1,7 +1,6 @@
 from datetime import datetime
 from django.db import models
 from django.conf import settings
-from django.contrib.auth import get_user_model
 
 
 # Create your models here.
@@ -13,6 +12,7 @@ class Conversation(models.Model):
     user_a = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="user_a_messages")
     user_b = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="user_b_messages")
     latest = models.DateTimeField(default=datetime.now, blank=True)
+    
 
     def get_recipient(self, current_user):
         if self.user_a == current_user:
