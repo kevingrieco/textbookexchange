@@ -9,7 +9,11 @@
         <a href="{% url 'direct_messages:inbox' %}" class="text-light" style="text-decoration:none;">Back to Inbox</a>
     </button>
     {% if conversation.messages %}
-    {{recipient}}
+    {% if full_name is not None %}
+    {{full_name}}
+    {% else %}
+    {{ recipient }}
+    {% endif %}
     <hr>
     {% for message in conversation.messages.all|dictsort:"time" %}
     <div class="m-3">

@@ -21,15 +21,13 @@ def _recipient_str(user, conversation):
     recipient_user = 'user_a' if conversation.user_a != user else 'user_b'
     if recipient_user == 'user_a':
         if conversation.user_a.first_name and conversation.user_a.last_name:
-            recipient = conversation.user_a.first_name + " " + conversation.user_a.last_name
-        else:
-            recipient = conversation.user_a.username
+            recipient_full_name = conversation.user_a.first_name + " " + conversation.user_a.last_name
+        recipient_username = conversation.user_a.username
     elif recipient_user == 'user_b':
         if conversation.user_b.first_name and conversation.user_b.last_name:
-            recipient = conversation.user_b.first_name + " " + conversation.user_b.last_name
-        else:
-            recipient = conversation.user_b.username
-    return recipient
+            recipient_full_name = conversation.user_b.first_name + " " + conversation.user_b.last_name
+        recipient_username = conversation.user_b.username
+    return recipient_username, recipient_full_name
 
 def view_conversation(request, pk):
     sender = request.user
@@ -39,8 +37,9 @@ def view_conversation(request, pk):
         return redirect('direct_messages:inbox')
     if (conversation.user_a != sender and conversation.user_b != sender):
         return redirect('direct_messages:inbox')
-    recipient = _recipient_str(request.user, conversation)
+    recipient, full_name = _recipient_str(request.user, conversation)
     context = {
+        'full_name': full_name,
         'recipient': recipient,
         'sender': sender,
         'conversation': conversation,
