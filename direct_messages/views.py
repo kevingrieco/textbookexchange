@@ -19,6 +19,7 @@ def _conversation_finder(sender, recipient):
 
 def _recipient_str(user, conversation):
     recipient_user = 'user_a' if conversation.user_a != user else 'user_b'
+    recipient_full_name = None
     if recipient_user == 'user_a':
         if conversation.user_a.first_name and conversation.user_a.last_name:
             recipient_full_name = conversation.user_a.first_name + " " + conversation.user_a.last_name
