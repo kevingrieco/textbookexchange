@@ -29,7 +29,7 @@ class Textbook(models.Model):
     ISBN = models.IntegerField()
     
     def __str__(self):
-        if self.edition >= 10 or self.edition <= 20:
+        if self.edition >= 10 and self.edition <= 20:
             edp = 'th'
         elif self.edition % 10 == 1:
             edp == 'st'
@@ -39,6 +39,4 @@ class Textbook(models.Model):
             edp = 'rd'
         else:
             edp = 'th'
-        
-        #return f"{self.title}, {self.edition}{edp} Edition  ({self.year}) -- {self.author}"
         return f"{self.title}, {self.edition}{edp} Edition ({self.year}) by {self.author}. ISBN: {self.ISBN}."
