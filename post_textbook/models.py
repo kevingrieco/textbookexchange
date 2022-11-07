@@ -32,7 +32,7 @@ class Textbook(models.Model):
         if self.edition >= 10 and self.edition <= 20:
             edp = 'th'
         elif self.edition % 10 == 1:
-            edp == 'st'
+            edp = 'st'
         elif self.edition % 10 == 2:
             edp = 'nd'
         elif self.edition % 10 == 3:
