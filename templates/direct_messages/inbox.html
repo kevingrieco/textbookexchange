@@ -16,7 +16,11 @@
             {% if conversation.user_a.socialaccount_set.all.0.extra_data.picture %}
                 <img src="{{conversation.user_a.socialaccount_set.all.0.extra_data.picture}}" style="width:25%;border-radius:50%;float:left;"/>
             {% endif %}
+            {% if conversation.user_a.first_name%}
+            <strong class="py-2">{{conversation.user_a.first_name}} {{conversation.user_a.last_name}}</strong>
+            {% else %}
             <strong class="py-2">{{conversation.user_a}}</strong>
+            {% endif %}
             {% if conversation.b_unread %}
                 <span class="badge bg-primary" style="border-radius:50%;">•</span>
             {% endif %}
@@ -26,7 +30,11 @@
             {% if conversation.user_b.socialaccount_set.all.0.extra_data.picture %}
                 <img src="{{conversation.user_b.socialaccount_set.all.0.extra_data.picture}}" style="width:25%;border-radius:50%;float:left;"/>
             {% endif %}
-            <strong>{{conversation.user_b}}</strong>
+            {% if conversation.user_b.first_name%}
+            <strong class="py-2">{{conversation.user_b.first_name}} {{conversation.user_b.last_name}}</strong>
+            {% else %}
+            <strong class="py-2">{{conversation.user_b}}</strong>
+            {% endif %}
             {% if conversation.a_unread %}
                 <span class="badge bg-primary" style="border-radius:50%;">•</span>
             {% endif %}
