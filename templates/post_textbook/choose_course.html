@@ -2,36 +2,36 @@
 
 {% block content %}
     
+  <div class="text-dark bg-light pt-4 px-4">
     <h2>Fill in the remaining information:</h2><br>
     <a href="{% url 'post_textbook:choose_department' %}" class="text-decoration-none text-light">
         <button class="btn btn-sm btn-secondary">
             Change Department
         </button>
     </a>
-    <div style="background: rgba(234, 135, 29, 0.661); posit">
     <form method="post" action="{% url 'post_textbook:textbook_details' %}" class="form-group">
       {% csrf_token %}
       <br><br>
-      <label>Department:
+      <label class="mb-2">Department:</label>
       <select id="department" name="department" class="form-group form-control" readonly>
         <option value="{{dept}}">{{dept}}</option>
       </select>
       <br><br>
-      <label>Course:
+      <label class="mb-2">Course:</label>
       <select id="course" name="course" class="form-group form-control">
         {% for course in courses%}
         <option value="{{course}}">{{course}}</option>
         {% endfor %}
       </select><br><br>
       <hr>
-      <h3>Textbook Details</h3>
-      <label>Title</label><input class="form-group form-control" id="title" name="title" type="text" required><br>
-      <label>Author(s)</label><input class="form-group form-control" id="author" name="author" type="text" required><br>
-      <label>Publisher</label><input class="form-group form-control" id="publisher" name="publisher" type="text" required><br>
-      <label>Edition</label><input class="form-group form-control" id="edition" name="edition" type="number" required><br>
-      <label>Year</label><input class="form-group form-control" id="year" name="year" type="number" required><br>
-      <label>ISBN</label><input class="form-group form-control" id="ISBN" name="ISBN" type="ISBN" required><br>
-      <input type="submit" value="Upload">
+      <h3 class="my-5">Textbook Details</h3>
+      <label class="mb-2">Title</label><input class="form-group form-control" id="title" name="title" type="text" required><br>
+      <label class="mb-2">Author(s)</label><input class="form-group form-control" id="author" name="author" type="text" required><br>
+      <label class="mb-2">Publisher</label><input class="form-group form-control" id="publisher" name="publisher" type="text" required><br>
+      <label class="mb-2">Edition</label><input class="form-group form-control" id="edition" name="edition" type="number" required><br>
+      <label class="mb-2">Year</label><input class="form-group form-control" id="year" name="year" type="number" required><br>
+      <label class="mb-2">ISBN</label><input class="form-group form-control" id="ISBN" name="ISBN" type="ISBN" required><br>
+      <button type="submit" value="Upload" class="btn btn-light text-dark border border-dark">Submit</button>
     </form><br><br>
   </div>
 

@@ -15,15 +15,50 @@
 <p>Email: {{user.email}}</p>
 {% endif %}
 {% endif %}
-{% if user.textbooks %}
+{% if not empty %}
 <p>My Textbooks:</p>
-{% for textbook in user.textbooks.all %}
-<div class="bg-light text-dark p-3 m-3">
-      <p id="{{textbook}}">
-        {{ textbook }}
-      </p>
-</div>
-{% endfor %}
+<div class="accordion" id="browseTextbooks">
+  <div class="accordion-item">
+    {% for department, value in departments.items %}
+      <h2 class="accordion-header" id="{{department}}">
+          <button class="accordion-button" type="button" 
+                  data-bs-toggle="collapse" data-bs-target="#collapse{{department}}" 
+                  aria-expanded="true" aria-controls="collapse{{department}}">
+              {{department}}
+          </button>
+      </h2>
+
+      <div id="collapse{{department}}" class="accordion-collapse collapse">
+        <div class="accordion-body">
+          {% for course, textbooks in value.items %}
+              <div class="accordion" id="begin{{course}}">
+                  <div class="accordion-item">
+                      <h2 class="accordion-header" id="{{course.id}}">
+                          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{course}}" aria-expanded="false" aria-controls="collapse{{department}}">
+                              {{course}}
+                          </button>
+                      </h2>
+
+                      <div id="collapse{{course}}" class="accordion-collapse collapse show">
+                          <div class="accordion-body text-dark">
+                            {% for textbook in textbooks|dictsort:"title" %}
+                              <p id="{{textbook}}">
+                                <img src="{{textbook.cover}}}" style="max-height:100px;" />
+                                {{ textbook }}
+                              </p>
+                              
+                            {% endfor %}
+                          </div>
+                      </div>
+                  </div> 
+              </div>
+              {% endfor %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
 {% else %}
 <p>You have not posted any textbooks to sell.</p>
 <p><a href="{% url 'post_textbook:choose_department' %}">Post a Textbook</a></p>

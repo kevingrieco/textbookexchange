@@ -5,13 +5,24 @@
     <a href="{% url 'index' %}" class="text-light" style="text-decoration:none;">Back to Home</a>
   </button>
     {% if object_list %}
-    <marquee behavior="alternate" scrollamount="3" style="font-size: 50pt">textbooks available:</marquee>
+    <p style="font-size:50pt;">Textbooks Available:</p>
     <div class="d-flex justify-content-center flex-wrap p-2">
     {% for textbook in object_list %}
-      <div class="list-group-item" style="flex: 100%;">{{ textbook }}</div>
+      <div class="list-group-item" style="flex: 100%;">
+        <img src={{textbook.cover}} style="max-height:120px"/>
+        {{ textbook }}
+        <a href="/profile/{{textbook.user.username}}"><p>Posted by 
+          {% if textbook.user.first_name and textbook.user.last_name %}
+          <strong>{{textbook.user.first_name}} {{textbook.user.last_name}}</strong>
+          {% else %}
+          <strong>{{textbook.user.username}}</strong>
+          {% endif %}
+        </p></a>
+      </div>
+      
     {% endfor %}
     </div>
     {% else %}
-    <marquee behavior="alternate" scrollamount="3" style="font-size: 50pt">no textbooks matched your search :(</marquee>
+    <p style="font-size:50pt;">no textbooks matched your search :(</p>
     {% endif %}
 {% endblock %}

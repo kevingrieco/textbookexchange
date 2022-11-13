@@ -9,37 +9,48 @@
         <a href="{% url 'direct_messages:inbox' %}" class="text-light" style="text-decoration:none;">Back to Inbox</a>
     </button>
     {% if conversation.messages %}
-    {% if full_name is not None %}
-    {{full_name}}
-    {% else %}
-    {{ recipient }}
-    {% endif %}
-    <hr>
-    {% for message in conversation.messages.all|dictsort:"time" %}
-    <div class="m-3">
-        {% if message.sender == sender %}
-        <div style="flex-direction:column;">
-            <div>
-                <div class="d-flex justify-content-end bg-primary p-3 text-light" style="border-radius:5px;margin-left:auto;width:fit-content;max-width:25%;">
-                    {{message.content}}
-                </div>
-                <div class="d-flex justify-content-end">
-                    {{message.time}}
-                </div>
-            </div>
+    <a href="{% url 'user_profile:other_profile' recipient %}" class="text-dark" style="text-decoration:none;">
+        {% if profile_picture %}
+        <div>  
+            <img src="{{profile_picture}}" class="mb-3" style="border-radius:50%; width:50px;"/>
         </div>
+        {% endif %}
+    <div>
+        {% if full_name is not None %}
+        {{full_name}}
         {% else %}
-            <div>
-                <div class="d-flex justify-content-start bg-light border p-3 border-dark text-dark" style="border-radius:5px;width:fit-content;max-width:25%;">
-                    {{message.content}}
-                </div>
-                <div class="d-flex justify-content-start">
-                    {{message.time}}
-                </div>
-            </div>
+        {{ recipient }}
         {% endif %}
     </div>
-    {% endfor %}
+    </a>
+    <hr>
+    <div id="message_box" style="max-height:300px;overflow-y:auto;">
+        {% for message in conversation.messages.all|dictsort:"time" %}
+        <div class="m-3">
+            {% if message.sender == sender %}
+            <div style="flex-direction:column;">
+                <div>
+                    <div class="d-flex justify-content-end bg-primary p-3 text-light" style="border-radius:5px;margin-left:auto;width:fit-content;max-width:25%;">
+                        {{message.content}}
+                    </div>
+                    <div class="d-flex justify-content-end pt-2">
+                        {{message.time}}
+                    </div>
+                </div>
+            </div>
+            {% else %}
+                <div>
+                    <div class="d-flex justify-content-start bg-light border p-3 border-dark text-dark" style="border-radius:5px;width:fit-content;max-width:25%;">
+                        {{message.content}}
+                    </div>
+                    <div class="d-flex justify-content-start pt-2">
+                        {{message.time}}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
     {% endif %}
     <form method="post" action="{% url 'direct_messages:send_message' %}" class="form-group mt-3">
         {% csrf_token %}
@@ -54,6 +65,11 @@
         </div>
     </form>
 </div>
+
+<script>
+    box = document.getElementById('message_box');
+    box.scrollTop = box.scrollHeight;
+</script>
 
 
 

@@ -27,6 +27,7 @@ class Textbook(models.Model):
     edition = models.IntegerField()
     year = models.IntegerField()
     ISBN = models.IntegerField()
+    cover = models.ImageField(upload_to=None)
     
     def __str__(self):
         if self.edition >= 10 and self.edition <= 20:

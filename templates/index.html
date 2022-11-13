@@ -6,7 +6,7 @@
 
     <form action="{% url 'search_results' %}" method="get" class="text-center">
       <div class="input-group">
-        <input name="q" type="text" placeholder="Search by title or author (or leave blank to see all textbooks)" class="form-control">
+        <input name="q" type="text" placeholder="Search by keyword (or leave blank to see all textbooks)" class="form-control">
         <div class="input-group-append">
           <button type="submit" class="btn bg-primary text-light h-100">
             <i class="fa-solid fa-magnifying-glass"></i>
@@ -45,7 +45,9 @@
                               <div class="accordion-body text-dark">
                                 {% for textbook in course.textbooks.all|dictsort:"title" %}
                                   <p id="{{textbook}}">
+                                    <img src="{{textbook.cover}}}" style="max-height:100px;" />
                                     {{ textbook }}
+                                    
                                   </p>
                                   <a href="/profile/{{textbook.user.username}}"><p>Posted by 
                                     {% if textbook.user.first_name and textbook.user.last_name %}

@@ -8,7 +8,8 @@ from django.conf import settings
 
 
 class Conversation(models.Model):
-    unread = models.BooleanField(default=False)
+    a_unread = models.BooleanField(default=False)
+    b_unread = models.BooleanField(default=False)
     user_a = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="user_a_messages")
     user_b = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="user_b_messages")
     latest = models.DateTimeField(default=datetime.now, blank=True)

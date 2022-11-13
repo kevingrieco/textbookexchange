@@ -58,6 +58,14 @@ def textbook_info(request):
     year = request.POST.get('year')
     ISBN = request.POST.get('ISBN')
 
+    cover_image_link = f"https://covers.openlibrary.org/b/isbn/{ISBN}-L.jpg?default=false"
+    cover_or_404 = requests.get(cover_image_link)
+    if cover_or_404.status_code == 404:
+        cover = "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/3166594/book-clipart-md.png"
+    else:
+        cover = cover_image_link
+    
+
     new_textbook = Textbook(
         department=department, 
         course=course, 
@@ -67,34 +75,8 @@ def textbook_info(request):
         publisher=publisher, 
         edition=edition, 
         year=year,
-        ISBN=ISBN
+        ISBN=ISBN,
+        cover=cover
         )
     new_textbook.save()
     return redirect('index')
-
-# def save_course_info(request):
-#     course = request.POST.get('course')
-#     new_course = Course()
-#     new_course.course_name = course
-#     new_course.save()
-#     return redirect(upload_textbook)
-
-    
-from django.views.generic import ListView, CreateView, UpdateView
-from django.urls import reverse_lazy
-
-# class TextbookListView(ListView):
-#     model = TextbookUpload
-#     context_object_name = 'textbooks'
-
-# class TextbookCreateView(CreateView):
-#     model = TextbookUpload
-#     fields = ('department', 'number', 'class_description', 'title', 'author', 'year', 'edition')
-#     form_class = TextbookForm
-#     success_url = reverse_lazy('textbook_changelist')
-
-# class TextbookUpdateView(UpdateView):
-#     model = TextbookUpload
-#     fields = ('department', 'number', 'class_description', 'title', 'author', 'year', 'edition')
-#     form_class = TextbookForm
-#     success_url = reverse_lazy('textbook_changelist')
