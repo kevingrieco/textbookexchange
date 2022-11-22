@@ -2,13 +2,13 @@
 
 {% block content %}
     
-    <h2>Fill in the remaining information:</h2><br>
+    <h3>Fill in the remaining information:</h3><br>
     <a href="{% url 'post_textbook:choose_department' %}" class="text-decoration-none text-light">
         <button class="btn btn-sm btn-secondary">
             Change Department
         </button>
     </a>
-    <div style="background: rgba(234, 135, 29, 0.661); posit">
+    <div style="background: rgba(91, 51, 9, 0.661); posit">
     <form method="post" action="{% url 'post_textbook:textbook_details' %}" class="form-group">
       {% csrf_token %}
       <br><br>
