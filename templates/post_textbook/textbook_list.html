@@ -13,11 +13,11 @@
     {% endif %}
     <br><br>
     <div class="shadow-lg p-3 mb-5 bg-body rounded">
-      <h2>To post a textbook for sale, first choose a course department:</h2>
+      <h3 style="color:black;">To post a textbook for sale, first choose a course department:</h3>
       <br>
       <form method="post" action="{% url 'post_textbook:choose_course' %}" class="form-group">
         {% csrf_token %}
-        <label>Department:  
+        <label style="color:black;">Department:  
         <select id="dept" name="dept" class="form-group form-control">
           {% for dept in course_depts%}
           <option value="{{dept}}">{{dept}}</option>
