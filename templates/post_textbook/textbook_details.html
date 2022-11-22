@@ -10,7 +10,7 @@
     {% else %}
         <h4>No textbooks are currently registered in our system. Would you like to post one to sell?</h4>
     {% endif %}
-    <h2>Please fill out this form to post your textbook:</h2>
+    <h3>Please fill out this form to post your textbook:</h3>
     <form method="post" action="{% url 'post_textbook:choose_course' %}">
       {% csrf_token %}
       <label>Department:</label>
