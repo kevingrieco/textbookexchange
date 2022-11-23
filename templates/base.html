@@ -12,9 +12,10 @@
     <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
   </head>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-light">
-    <ul class="navbar-nav mr-auto px-3" style="white-space: no-wrap;">
+  <nav class="d-flex flex-row justify-content-between navbar navbar-expand-lg navbar-dark bg-dark text-light">
+    {% comment %} <ul class="" style="white-space: no-wrap;"> {% endcomment %}
       {% if user.is_authenticated %}
+      <div class="d-flex justify-content-start navbar-nav mr-auto px-3">
         <li class="nav-item active px-3 d-inline-block" style="white-space: no-wrap;">
           <a href="{% url 'index' %}" class="nav-link" >Home</a></li>
         <li class="nav-item px-3 d-inline-block" style="white-space: no-wrap;">
@@ -23,8 +24,10 @@
         <li class="nav-item px-3 d-inline-block" style="white-space: no-wrap;">
           <a href="{% url 'post_textbook:choose_department' %}" class="nav-link">Submit Textbook</a>
         </li>
-        <li class="nav-item px-3 me-autod-inline-block" style="white-space: no-wrap;">
-          <a href="{% url 'user_profile:my_profile' %}" class="nav-link">
+      </div>
+      <div class="d-flex justify-content-end navbar-nav mr-auto ps-3">
+        <li class="nav-item ps-3 me-autod-inline-block" style="white-space: no-wrap;">
+          <a href="{% url 'user_profile:my_profile' %}">
             {% if user.socialaccount_set.all %}
             <img src="{{user.socialaccount_set.all.0.extra_data.picture}}" style="width:25%;border-radius:50%;"/>
             {% else %}
@@ -32,12 +35,13 @@
             {% endif %}
           </a>
         </li>
+      </div>
       {% else %}
         <li class="nav-item px-3 me-auto d-inline-block" style="white-space: no-wrap;">
           <a href="{% url 'index' %}" class="text-decoration-none text-light">Login</a></li>
         </li>
       {% endif %}
-    </ul>
+    {% comment %} </ul> {% endcomment %}
   </nav>
 <body>
   <div

@@ -1,12 +1,5 @@
 {% extends 'base.html' %}
-
-{% load bootstrap5 %}
-{% bootstrap_javascript %}
-
-
 {% block content %}
-    
-
     <form action="{% url 'search_results' %}" method="get" class="text-center">
       <div class="input-group">
         <input name="q" type="text" placeholder="Search by keyword (or leave blank to see all textbooks)" class="form-control">
@@ -17,7 +10,6 @@
         </div>
       </div>
       </form>
-
     {% if departments %}
     <br><br>
     Browse available textbooks by department:
@@ -32,7 +24,6 @@
                   {{department}}
               </button>
           </h2>
-
           <div id="collapse{{department}}" class="accordion-collapse collapse">
             <div class="accordion-body">
               {% for course in department.courses.all|dictsort:"name" %}
@@ -43,14 +34,12 @@
                                   {{course}}
                               </button>
                           </h2>
-
                           <div id="collapse{{course}}" class="accordion-collapse collapse show">
                               <div class="accordion-body text-dark">
                                 {% for textbook in course.textbooks.all|dictsort:"title" %}
                                   <p id="{{textbook}}">
-                                    <img src="{{textbook.cover}}}" style="max-height:100px;" />
+                                    <img src="{{textbook.cover}}" style="max-height:100px;" />
                                     {{ textbook }}
-                                    
                                   </p>
                                   <a href="/profile/{{textbook.user.username}}"><p>Posted by 
                                     {% if textbook.user.first_name and textbook.user.last_name %}
@@ -59,7 +48,6 @@
                                     <strong>{{textbook.user.username}}</strong>
                                     {% endif %}
                                   </p></a>
-                                    
                                 {% endfor %}
                               </div>
                           </div>
@@ -72,13 +60,4 @@
           </div>
         </div>
     {% endif %}
-
-
-    {% comment %}  {% endcomment %}
-    {% comment %}  {% endcomment %}
-    {% comment %}  {% endcomment %}
-
-    
-
-
 {% endblock %}

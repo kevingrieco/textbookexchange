@@ -8,7 +8,7 @@
     <p style="font-size:50pt;">Textbooks Available:</p>
     <div class="d-flex justify-content-center flex-wrap p-2">
     {% for textbook in object_list %}
-      <div class="list-group-item" style="flex: 100%;">
+      <div class="list-group-item" style="flex: 100%;border-radius:5px;">
         <img src={{textbook.cover}} style="max-height:120px"/>
         {{ textbook }}
         <a href="/profile/{{textbook.user.username}}"><p>Posted by 
@@ -23,6 +23,6 @@
     {% endfor %}
     </div>
     {% else %}
-    <p style="font-size:50pt;">no textbooks matched your search :(</p>
+    <p style="font-size:50pt;">No textbooks found.</p>
     {% endif %}
 {% endblock %}
