@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 
+{% load bootstrap5 %}
+{% bootstrap_javascript %}
+
 
 {% block content %}
     
@@ -20,10 +23,10 @@
     Browse available textbooks by department:
     <br><br><br>
     <div class="accordion" id="browseTextbooks">
-      <div class="accordion-item">
+      <div class="card">
         {% for department in departments %}
-          <h2 class="accordion-header" id="{{department}}">
-              <button class="accordion-button" type="button" 
+          <h2 class="card-header" id="{{department}}">
+              <button class="btn btn-lg" type="button" 
                       data-bs-toggle="collapse" data-bs-target="#collapse{{department}}" 
                       aria-expanded="true" aria-controls="collapse{{department}}">
                   {{department}}
@@ -34,9 +37,9 @@
             <div class="accordion-body">
               {% for course in department.courses.all|dictsort:"name" %}
                   <div class="accordion" id="begin{{course}}">
-                      <div class="accordion-item">
-                          <h2 class="accordion-header" id="{{course.id}}">
-                              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{course}}" aria-expanded="false" aria-controls="collapse{{department}}">
+                      <div class="card">
+                          <h2 class="card-header" id="{{course.id}}">
+                              <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{course}}" aria-expanded="false" aria-controls="collapse{{department}}">
                                   {{course}}
                               </button>
                           </h2>
@@ -69,6 +72,13 @@
           </div>
         </div>
     {% endif %}
+
+
+    {% comment %}  {% endcomment %}
+    {% comment %}  {% endcomment %}
+    {% comment %}  {% endcomment %}
+
+    
 
 
 {% endblock %}
