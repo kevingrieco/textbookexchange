@@ -1,17 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2 class="text-dark">Please fill out this form to post your textbook:</h2>
-    <form method="post" action="{% url 'post_textbook:choose_course' %}">
-      {% csrf_token %}
-      <label>Department:</label>
-      {% comment %} <select>
-        {% for dept in course_depts%}
-        <option>{{dept}}</option>
-        {% endfor %}
-      </select> {% endcomment %}
-      <button type="submit">Save</button>
-    </form>
+<h2 class="text-dark">Please fill out this form to post your textbook:</h2>
+
+<form method="post" action="{% url 'post_textbook:choose_course' %}">
+  {% csrf_token %}
+    <label>Department:</label>
+    {% comment %} <select>
+    {% for dept in course_depts%}
+    <option>{{dept}}</option>
+    {% endfor %}
+    </select> {% endcomment %}
+    <button type="submit">Save</button>
+  </form>
 
         
 

@@ -1,4 +1,5 @@
 from django.test import TestCase
+from .models import Textbook
 from django.db.models import Q
 import requests
 
@@ -11,8 +12,8 @@ class GoogleLoginTestCases(TestCase):
         req = requests.get("https://uva-cs3240-b-24.herokuapp.com/")
         self.assertEqual(req.status_code, 200)
 
-class SearchTestCases(TestCase):
-    
+   
+class SearchTestCases(TestCase):     
     def title_search(self):
         q = "fjdkslfd"
         object_list = Textbook.objects.filter(

@@ -7,6 +7,7 @@
       <form method="post" action="{% url 'post_textbook:choose_course' %}" class="form-group">
         {% csrf_token %}
         <label class="mb-3">Department:</label> 
+
         <select id="dept" name="dept" class="form-group form-control">
           {% for dept in course_depts%}
           <option value="{{dept}}">{{dept}}</option>
