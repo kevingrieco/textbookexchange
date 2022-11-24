@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import Textbook
+from post_textbook.models import Textbook
 from django.db.models import Q
 import requests
 
