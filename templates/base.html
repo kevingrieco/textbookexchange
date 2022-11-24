@@ -26,7 +26,7 @@
       </div>
       <div class="d-flex justify-content-end navbar-nav mr-auto px-3">
         <li class="nav-item px-3 me-autod-inline-block" style="white-space: no-wrap;">
-          <a href="{% url 'user_profile:my_profile' %}">
+          <a href="{% url 'user_profile:my_profile' %}" class="nav-link">
             {% if user.socialaccount_set.all %}
             <img src="{{user.socialaccount_set.all.0.extra_data.picture}}" style="width:25%;border-radius:50%;"/>
             {% else %}
