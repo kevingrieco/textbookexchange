@@ -4,23 +4,47 @@
 
 
 
-<div class="bg-light text-dark p-3 mb-2" style="border-radius:10px;">
+<div class="bg-light text-dark p-3 mb-2" style="border-radius:10px; margin-left:auto;">
     {% if conversations %}
     {% for conversation in conversations|dictsortreversed:"latest" %}
     <a href="{{conversation.pk}}" class="text-dark" style="text-decoration:none;">
-        <div class="d-flex justify-content-between border border-dark p-2 m-2" style="border-radius:10px;">
+        <div class="d-flex justify-content-between border border-secondary p-4 m-2" style="border-radius:10px;">
         {% if conversation.messages %}
         <div>
             {% if not user == conversation.user_a %}
-            <strong>{{conversation.user_a}}</strong>
+            <h5>
+            {% if conversation.user_a.socialaccount_set.all.0.extra_data.picture %}
+                <img src="{{conversation.user_a.socialaccount_set.all.0.extra_data.picture}}" style="width:25%;border-radius:50%;float:left;"/>
+            {% endif %}
+            {% if conversation.user_a.first_name%}
+            <strong class="py-2">{{conversation.user_a.first_name}} {{conversation.user_a.last_name}}</strong>
             {% else %}
-            <strong>{{conversation.user_b}}</strong>
+            <strong class="py-2">{{conversation.user_a}}</strong>
+            {% endif %}
+            {% if conversation.b_unread %}
+                <span class="badge bg-primary" style="border-radius:50%;">•</span>
+            {% endif %}
+            </h5>
+            {% else %}
+            <h5>
+            {% if conversation.user_b.socialaccount_set.all.0.extra_data.picture %}
+                <img src="{{conversation.user_b.socialaccount_set.all.0.extra_data.picture}}" style="width:25%;border-radius:50%;float:left;"/>
+            {% endif %}
+            {% if conversation.user_b.first_name%}
+            <strong class="py-2">{{conversation.user_b.first_name}} {{conversation.user_b.last_name}}</strong>
+            {% else %}
+            <strong class="py-2">{{conversation.user_b}}</strong>
+            {% endif %}
+            {% if conversation.a_unread %}
+                <span class="badge bg-primary" style="border-radius:50%;">•</span>
+            {% endif %}
+            </h5>
             {% endif %}
         </div>
-        <div>
+        <div class="p-2">
             {{conversation.get_latest_message.content}}
         </div>
-        <div>
+        <div class="p-2">
             {{conversation.get_latest_message.time}}
         </div>
         {% endif %}

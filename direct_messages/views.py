@@ -1,11 +1,15 @@
 from django.shortcuts import render, redirect
 from .models import Conversation, Message 
 from django.contrib.auth import get_user_model
+from allauth.socialaccount.models import SocialAccount
 
 # Create your views here.
 
 User = get_user_model()
 users = User.objects.all()
+
+def _user_finder(conversation, user):
+    return 'user_b' if conversation.user_a != user else 'user_a'
 
 def _conversation_finder(sender, recipient):
     if Conversation.objects.filter(user_a=users.get(username=sender), user_b=users.get(username=recipient)).exists():
@@ -39,11 +43,22 @@ def view_conversation(request, pk):
     if (conversation.user_a != sender and conversation.user_b != sender):
         return redirect('direct_messages:inbox')
     recipient, full_name = _recipient_str(request.user, conversation)
+    if _user_finder(conversation, request.user) == 'user_a':
+        conversation.a_unread = False
+    else:
+        conversation.b_unread = False
+    conversation.save()
+    social_account = SocialAccount.objects.filter(user=users.get(username=recipient))
+    if social_account:
+        profile_picture = social_account[0].extra_data['picture']
+    else:
+        profile_picture = None
     context = {
         'full_name': full_name,
         'recipient': recipient,
         'sender': sender,
         'conversation': conversation,
+        'profile_picture': profile_picture,
     }
     return render(request, 'direct_messages/message_user.html', context)
 
@@ -70,11 +85,20 @@ def send_message(request):
     )
     message.save()
     conversation.latest = message.time
+    if _user_finder(conversation, sender) == 'user_a':
+        conversation.b_unread = True
+    else:
+        conversation.a_unread = True
     conversation.save()
     return redirect('direct_messages:view_conversation', pk=conversation.pk)
 
 
 def inbox(request):
+    conversations = Conversation.objects.filter(user_a=request.user) | Conversation.objects.filter(user_b=request.user)
+    for conversation in conversations:
+        if len(conversation.messages.all()) == 0:
+            conversation.delete()
+    # Get conversations again after deleting any
     conversations = Conversation.objects.filter(user_a=request.user) | Conversation.objects.filter(user_b=request.user)
     context = {
         'conversations': conversations,

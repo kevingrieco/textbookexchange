@@ -5,30 +5,68 @@
 
 
 <div class="text-light">
-    <form method="post" action="{% url 'direct_messages:message_user' %}" class="form-group">
-        {% csrf_token %}
-        <input name="recipient" id="recipient" value="{{user_real.username}}" hidden>
-        <button type="submit" class="btn btn-lg btn-light">Message</button>
-    </form>
+
 {% if social_account.0.extra_data %}
 <img src="{{ social_account.0.extra_data.picture }}" style="border-radius:50%;">
 <br><br>
-<p>Name: {{social_account.0.extra_data.name}}</p>
-<p>{{social_account.0.extra_data.name}}'s Textbooks:</p>
-{% else %}
-<p>Name: {{user_real.username}}</p>
-<p>{{user_real.username}}'s Textbooks:</p>
 {% endif %}
-{% if user_real.textbooks|length %}
-{% for textbook in user_real.textbooks.all %}
-<div class="bg-light text-dark">
-      <p id="{{textbook}}">
-        {{ textbook }}
-      </p>
+<p>{{name}}</p>
+
+<form method="post" action="{% url 'direct_messages:message_user' %}" class="form-group">
+  {% csrf_token %}
+  <input name="recipient" id="recipient" value="{{user_real.username}}" hidden>
+  <button type="submit" class="btn btn-lg btn-light">Message</button>
+</form>
+{% if not empty %}
+<p>{{name}}'s Textbooks:</p>
+
+<div class="accordion" id="browseTextbooks">
+  <div class="card">
+    {% for department, value in departments.items %}
+      <h2 class="card-header" id="{{department}}">
+          <button class="btn btn-lg" type="button" 
+                  data-bs-toggle="collapse" data-bs-target="#collapse{{department}}" 
+                  aria-expanded="true" aria-controls="collapse{{department}}">
+              {{department}}
+          </button>
+      </h2>
+      <div id="collapse{{department}}" class="accordion-collapse collapse">
+        <div class="accordion-body">
+          {% for course, textbooks in value.items %}
+              <div class="accordion" id="begin{{course}}">
+                  <div class="card">
+                      <h2 class="card-header" id="{{course.id}}">
+                          <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{course}}" aria-expanded="false" aria-controls="collapse{{department}}">
+                              {{course}}
+                          </button>
+                      </h2>
+                  <div id="collapse{{course}}" class="accordion-collapse collapse show">
+                      <div class="accordion-body text-dark">
+                        {% for textbook in course.textbooks.all|dictsort:"title" %}
+                          <p id="{{textbook}}">
+                            <img src="{{textbook.cover}}" style="max-height:100px;" />
+                            {{ textbook }}
+                          </p>
+                          <a href="/profile/{{textbook.user.username}}"><p>Posted by 
+                            {% if textbook.user.first_name and textbook.user.last_name %}
+                            <strong>{{textbook.user.first_name}} {{textbook.user.last_name}}</strong>
+                            {% else %}
+                            <strong>{{textbook.user.username}}</strong>
+                            {% endif %}
+                          </p></a>
+                        {% endfor %}
+                      </div>
+                  </div>
+              </div> 
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+  </div>
 </div>
-{% endfor %}
 {% else %}
-<p> {{user_real.username}} has not posted any textbooks to sell.</p>
+<p> {{name}} has not posted any textbooks to sell.</p>
 {% endif %}
 </div>
 

@@ -1,12 +1,8 @@
 {% extends 'base.html' %}
-
-
 {% block content %}
-    
-
     <form action="{% url 'search_results' %}" method="get" class="text-center">
       <div class="input-group">
-        <input name="q" type="text" placeholder="Search by title or author (or leave blank to see all textbooks)" class="form-control">
+        <input name="q" type="text" placeholder="Search by keyword (or leave blank to see all textbooks)" class="form-control">
         <div class="input-group-append">
           <button type="submit" class="btn bg-primary text-light h-100">
             <i class="fa-solid fa-magnifying-glass"></i>
@@ -14,37 +10,35 @@
         </div>
       </div>
       </form>
-
     {% if departments %}
     <br><br>
     <p>Browse available textbooks by department:</p>
     <br><br><br>
     <div class="accordion" id="browseTextbooks">
-      <div class="accordion-item">
+      <div class="card">
         {% for department in departments %}
-          <h2 class="accordion-header" id="{{department}}">
-              <button class="accordion-button" type="button" 
+          <h2 class="card-header" id="{{department}}">
+              <button class="btn btn-lg" type="button" 
                       data-bs-toggle="collapse" data-bs-target="#collapse{{department}}" 
                       aria-expanded="true" aria-controls="collapse{{department}}">
                   {{department}}
               </button>
           </h2>
-
           <div id="collapse{{department}}" class="accordion-collapse collapse">
             <div class="accordion-body">
               {% for course in department.courses.all|dictsort:"name" %}
                   <div class="accordion" id="begin{{course}}">
-                      <div class="accordion-item">
-                          <h2 class="accordion-header" id="{{course.id}}">
-                              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{course}}" aria-expanded="false" aria-controls="collapse{{department}}">
+                      <div class="card">
+                          <h2 class="card-header" id="{{course.id}}">
+                              <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{course}}" aria-expanded="false" aria-controls="collapse{{department}}">
                                   {{course}}
                               </button>
                           </h2>
-
                           <div id="collapse{{course}}" class="accordion-collapse collapse show">
                               <div class="accordion-body text-dark">
                                 {% for textbook in course.textbooks.all|dictsort:"title" %}
                                   <p id="{{textbook}}">
+                                    <img src="{{textbook.cover}}" style="max-height:100px;" />
                                     {{ textbook }}
                                   </p>
                                   <a href="/profile/{{textbook.user.username}}"><p>Posted by 
@@ -54,7 +48,6 @@
                                     <strong>{{textbook.user.username}}</strong>
                                     {% endif %}
                                   </p></a>
-                                    
                                 {% endfor %}
                               </div>
                           </div>
@@ -67,6 +60,4 @@
           </div>
         </div>
     {% endif %}
-
-
 {% endblock %}

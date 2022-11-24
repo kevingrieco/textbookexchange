@@ -12,3 +12,4 @@ django-allauth
 selenium
 requests
 fontawesomefree
+Pillow

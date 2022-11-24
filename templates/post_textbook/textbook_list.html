@@ -1,23 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% if current_textbooks %}
-        <ul class="list-group">
-        {% for textbook in current_textbooks %}
-            <li class="list-group list-group-item">
-              {{ textbook.title }} -- {{ textbook.author }} ({{ textbook.year }})</li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <h4>No textbooks are currently registered in our system. Would you like to post one to sell?</h4>
-    {% endif %}
-    <br><br>
-    <div class="shadow-lg p-3 mb-5 bg-body rounded">
-      <h3 style="color:black;">To post a textbook for sale, first choose a course department:</h3>
+    <div class="shadow-lg p-3 mb-5 bg-body rounded text-dark">
+      <h2>To post a textbook for sale, first choose a course department:</h2>
       <br>
       <form method="post" action="{% url 'post_textbook:choose_course' %}" class="form-group">
         {% csrf_token %}
-        <label style="color:black;">Department:  
+        <label class="mb-3">Department:</label> 
+
         <select id="dept" name="dept" class="form-group form-control">
           {% for dept in course_depts%}
           <option value="{{dept}}">{{dept}}</option>

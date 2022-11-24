@@ -12,19 +12,19 @@
     <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
   </head>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-light">
-    <ul class="navbar-nav mr-auto px-3" style="white-space: no-wrap;">
+  <nav class="d-flex flex-row justify-content-between navbar navbar-expand-lg navbar-dark bg-dark text-light">
       {% if user.is_authenticated %}
+      <div class="d-flex justify-content-start navbar-nav mr-auto px-3">
         <li class="nav-item active px-3 d-inline-block" style="white-space: no-wrap;">
-          <a href="{% url 'index' %}" class="nav-link" >Search</a></li>
+          <a href="{% url 'index' %}" class="nav-link" >Home</a></li>
         <li class="nav-item px-3 d-inline-block" style="white-space: no-wrap;">
-          <a href="{% url 'direct_messages:inbox' %}" class="nav-link" >Inbox</a></li>
+          <a href="{% url 'direct_messages:inbox' %}" class="nav-link" >Inbox</a>
+        </li>
         <li class="nav-item px-3 d-inline-block" style="white-space: no-wrap;">
           <a href="{% url 'post_textbook:choose_department' %}" class="nav-link">Submit Textbook</a>
         </li>
-        <li class="nav-item px-3 d-inline-block" style="white-space: no-wrap;">
-          <a href="/accounts/logout" class="nav-link d-flex mr-auto">Logout</a>
-        </li>
+      </div>
+      <div class="d-flex justify-content-end navbar-nav mr-auto px-3">
         <li class="nav-item px-3 me-autod-inline-block" style="white-space: no-wrap;">
           <a href="{% url 'user_profile:my_profile' %}" class="nav-link">
             {% if user.socialaccount_set.all %}
@@ -34,12 +34,12 @@
             {% endif %}
           </a>
         </li>
+      </div>
       {% else %}
         <li class="nav-item px-3 me-auto d-inline-block" style="white-space: no-wrap;">
           <a href="{% url 'index' %}" class="text-decoration-none text-light">Login</a></li>
         </li>
       {% endif %}
-    </ul>
   </nav>
 <body>
   <div
@@ -65,8 +65,8 @@
       {% block content %} {% endblock content %}
       </div>
       <br>
-        <p style="color: orangered">Welcome, {{ user|title }}. You are logged in!</p>
-        <a href="/accounts/logout">Logout</a>
+        <p style="color: #8FD8CA">Welcome, {{ user|title }}. You are logged in!</p>
+        <a href="/accounts/logout" style="text-decoration:none;">Logout</a>
       {% elif request.path == "/accounts/google/login/" %}
         {% block login_info %} {% endblock login_info %}
       {% else %}

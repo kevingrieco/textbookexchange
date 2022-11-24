@@ -19,6 +19,6 @@ class SearchResultsView(ListView):
     def get_queryset(self):
         q = self.request.GET.get('q')
         object_list = Textbook.objects.filter(
-            Q(title__icontains=q) | Q(author__icontains=q)
+            Q(title__icontains=q) | Q(author__icontains=q) | Q(publisher__icontains=q) | Q(department__name__icontains=q) | Q(course__name__icontains=q)
         )
         return object_list
