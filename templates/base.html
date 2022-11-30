@@ -9,6 +9,8 @@
 
 <html>
   <head>
+    <body style="text-align:center">
+    </body>
     <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
   </head>
@@ -42,22 +44,50 @@
       {% endif %}
   </nav>
 <body>
-  <div
-    class="p-5 text-center bg-image"
-    style="
-      background-image: url('https://collegeinfogeek.com/wp-content/uploads/2014/11/how-to-read-a-textbook-featured.jpg');
-      height: 200px;
-    "
-  >
-    <div class="mask" style="background-color: rgba(0, 0, 0, 0.6); height:fit-content;">
-      <div class="d-flex justify-content-center h-100">
-        <div class="text-white align-items-center">
-          <h1 class="display-3 align-items-center">University of Virginia Textbook Exchange</h1>
-          <h2 class="mb-3">Buy and Sell Textbooks for UVA Courses</h2>
+  {% if user.is_authenticated %}
+    <div
+      class="p-5 text-center bg-image"
+      style="
+        background-image: url('https://collegeinfogeek.com/wp-content/uploads/2014/11/how-to-read-a-textbook-featured.jpg');
+        height: 300px;
+      "
+    >
+      <div class="mask" style="background-color: rgba(0, 0, 0, 0.6); height:fit-content;">
+        <div class="d-flex justify-content-center h-100">
+          <div class="text-white align-items-center">
+            <br>
+            <h1 class="display-3 align-items-center">University of Virginia Textbook Exchange</h1>
+            <h2 class="mb-3">Buy and Sell Textbooks for UVA Courses</h2>
+            <br>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  {% else %}
+    <div
+      class="p-5 text-center bg-image"
+      style="
+        background-image: url('https://i.pinimg.com/originals/f3/e5/3b/f3e53b9404d667da44736435bd9340f6.jpg');
+        height: 520px; 
+      "
+    >
+      <div class="mask" style="background-color: rgba(0, 0, 0, 0.6); height:fit-content; mask-position: center;" >
+        <div class="d-flex justify-content-center h-500">
+          <div class="text-white align-items-center">
+            <br>
+            <br>
+            <br>
+            <h1 class="display-3 align-items-center">University of Virginia Textbook Exchange</h1>
+            <h2 class="mb-3">Buy and Sell Textbooks for UVA Courses</h2>
+            <br>
+            <br>
+            <p><em>We're changing the textbook game, one textbook at a time! Run by a group of sleep deprived CS students :)</em></p>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
   <div class="p-5 text-center bg-dark">
     <h6 class="mb-3">  
       {% if user.is_authenticated %}
@@ -65,13 +95,17 @@
       {% block content %} {% endblock content %}
       </div>
       <br>
-        <p style="color: #8FD8CA">Welcome, {{ user|title }}. You are logged in!</p>
-        <a href="/accounts/logout" style="text-decoration:none;">Logout</a>
+      <br>
+      <br>
+      <br>
+      <br>
+        <p style="color: #ced4da">Welcome, {{ user|title }}. You are logged in!</p>
+        <a href="/accounts/logout" style="text-decoration:none;"><button type="button" class="btn btn-outline-light" aria-pressed="true">Logout</button></a>
       {% elif request.path == "/accounts/google/login/" %}
         {% block login_info %} {% endblock login_info %}
       {% else %}
-        <p>Login to get started exchanging your textbooks.</p>
-        <a href="{% provider_login_url 'google' %}">Login With Google</a>
+        <p style="color: whitesmoke">LOGIN TO START EXCHANGING TEXTBOOKS</p>
+        <a href="{% provider_login_url 'google' %}"><button type="button" class="btn btn-light btn-lg" aria-pressed="true">Login With Google</button></a>
       {% endif %}
     </h6>
   </div>
