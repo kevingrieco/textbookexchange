@@ -6,8 +6,8 @@
 {% if social_account.0.extra_data %}
 <img src="{{ social_account.0.extra_data.picture }}" style="border-radius:50%;">
 <br><br>
-<p>Name: {{social_account.0.extra_data.name}}</p>
-<p>Email: {{social_account.0.extra_data.email}}</p>
+<p><em>Name:</em> {{social_account.0.extra_data.name}}</p>
+<p><em>Email:</em> {{social_account.0.extra_data.email}}</p>
 
 {% else %}
 <p>Name: {{user.username}}</p>
