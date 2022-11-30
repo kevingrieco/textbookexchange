@@ -63,8 +63,9 @@
   </div>
 </div>
 {% else %}
-<p>You have not posted any textbooks to sell.</p>
-<p><a href="{% url 'post_textbook:choose_department' %}">Post a Textbook</a></p>
+<br>
+<p><em>You have not posted any textbooks to sell. Click below to post a textbook!</em></p>
+<p><a href="{% url 'post_textbook:choose_department' %}"><button type="button" class="btn btn-outline-light" aria-pressed="true">Post a Textbook</button></a></p>
 {% endif %}
 </div>
 
