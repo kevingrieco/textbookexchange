@@ -39,7 +39,7 @@
                       </h2>
                   <div id="collapse{{course}}" class="accordion-collapse collapse show">
                       <div class="accordion-body text-dark">
-                        {% for textbook in course.textbooks.all|dictsort:"title" %}
+                        {% for textbook in textbooks|dictsort:"title" %}
                           <p id="{{textbook}}">
                             <img src="{{textbook.cover}}" style="max-height:100px;" />
                             {{ textbook }}
