@@ -3,13 +3,27 @@
 {% block content %}
 
 <div class="text-light">
+
+<div class= "bg-secondary text-light">
+<br>
+
+<h2><em>User Profile</em></h2>
+<br>
+
+
+</div>
+<div class="bg-6c757d text-white">
+
+<br>
+<br>
+
 {% if social_account.0.extra_data %}
 <img src="{{ social_account.0.extra_data.picture }}" style="border-radius:100%;">
 
-<p><em><h2>{{social_account.0.extra_data.name}}</h2></em></p>
+<br>
 
-<div class="bg-secondary text-white">
-<br><br>
+<p><em><h3>{{social_account.0.extra_data.name}}</h3></em></p>
+
 <p><em>Email:</em> {{social_account.0.extra_data.email}}</p>
 <br>
 </div>
@@ -21,14 +35,20 @@
 {% endif %}
 {% if not empty %}
 <br><br>
-<p>My Textbooks:</p>
+
+<div class= "bg-secondary text-light">
+<br>
+<h2><em>My Textbooks:</em></h2>
+<br>
+</div>
+
 <div class="accordion" id="browseTextbooks">
   <div class="card">
     {% for department, value in departments.items %}
       <h2 class="card-header" id="{{department}}">
           <button class="btn btn-lg" type="button" 
                   data-bs-toggle="collapse" data-bs-target="#collapse{{department}}" 
-                  aria-expanded="true" aria-controls="collapse{{department}}">
+                  aria-expanded="true" aria-controls="collapse{{department}}" aria-pressed="true" >
               {{department}}
           </button>
       </h2>
@@ -48,17 +68,19 @@
                           <p id="{{textbook}}" style="display:inline">
                             <img src="{{textbook.cover}}" style="max-height:100px;" />
                             {{ textbook }}
+                            <br>
+                            <br>
                             <form method="post" action="{% url 'remove_textbook:delete_confirm' textbook.pk %}" class="d-inline-flex" style="display: inline;">
                               {% csrf_token %}
                               <input name="view" id="view" value="user_profile:my_profile" hidden style="display: inline;"/>
                               <button type="submit" class="btn bg-light text-dark h-100 border-dark mx-3" style="display: inline;"><i class="fa-regular fa-trash-can" aria-pressed="true"></i> delete textbook</button>
                             </form>
                           </p>
-                          <a href="/profile/{{textbook.user.username}}"><p>Posted by 
+                          <a href="/profile/{{textbook.user.username}}"><p><em>Posted by 
                             {% if textbook.user.first_name and textbook.user.last_name %}
-                            <strong>{{textbook.user.first_name}} {{textbook.user.last_name}}</strong>
+                            <strong>{{textbook.user.first_name}} {{textbook.user.last_name}}</em></strong>
                             {% else %}
-                            <strong>{{textbook.user.username}}</strong>
+                            <strong><em>{{textbook.user.username}}</em></strong>
                             {% endif %}
                           </p></a>
                         {% endfor %}
