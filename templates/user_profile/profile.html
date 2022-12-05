@@ -4,11 +4,15 @@
 
 <div class="text-light">
 {% if social_account.0.extra_data %}
-<img src="{{ social_account.0.extra_data.picture }}" style="border-radius:50%;">
-<br><br>
-<p><em>Name:</em> {{social_account.0.extra_data.name}}</p>
-<p><em>Email:</em> {{social_account.0.extra_data.email}}</p>
+<img src="{{ social_account.0.extra_data.picture }}" style="border-radius:100%;">
 
+<p><em><h2>{{social_account.0.extra_data.name}}</h2></em></p>
+
+<div class="bg-secondary text-white">
+<br><br>
+<p><em>Email:</em> {{social_account.0.extra_data.email}}</p>
+<br>
+</div>
 {% else %}
 <p>Name: {{user.username}}</p>
 {% if user.email%}
@@ -16,6 +20,7 @@
 {% endif %}
 {% endif %}
 {% if not empty %}
+<br><br>
 <p>My Textbooks:</p>
 <div class="accordion" id="browseTextbooks">
   <div class="card">
@@ -46,7 +51,7 @@
                             <form method="post" action="{% url 'remove_textbook:delete_confirm' textbook.pk %}" class="d-inline-flex" style="display: inline;">
                               {% csrf_token %}
                               <input name="view" id="view" value="user_profile:my_profile" hidden style="display: inline;"/>
-                              <button type="submit" class="btn bg-light text-dark h-100 border-dark mx-3" style="display: inline;"><i class="fa-regular fa-trash-can"></i></button>
+                              <button type="submit" class="btn bg-light text-dark h-100 border-dark mx-3" style="display: inline;"><i class="fa-regular fa-trash-can" aria-pressed="true"></i> delete textbook</button>
                             </form>
                           </p>
                           <a href="/profile/{{textbook.user.username}}"><p>Posted by 
@@ -68,6 +73,7 @@
   </div>
 </div>
 {% else %}
+<br>
 <br>
 <p><em>You have not posted any textbooks to sell. Click below to post a textbook!</em></p>
 <p><a href="{% url 'post_textbook:choose_department' %}"><button type="button" class="btn btn-outline-light" aria-pressed="true">Post a Textbook</button></a></p>
