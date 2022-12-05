@@ -15,15 +15,14 @@ class TestTextBook(TestCase):
         return department
 
     #test the when a course is made
-    def create_course(self, name= "Fun3", dep=[]):
-        department= Department.objects.create(name= dep['name'])
+    def create_course(self, name= "Fun3", dep=''):
+        department= Department.objects.create(name= 'ECE')
         course= Course.objects.create(name=name, department=department)
         return course
 
     #test when a textbook is created
-    def create_textbook(self, department=[], course=[], title="Signals and Systems", author= "Delong", publisher= "michigan publishing", edition="1", year= "2018", ISBN= " 123456789"):
+    def create_textbook(self, department='ECE', course=[], title="Signals and Systems", author= "Delong", publisher= "michigan publishing", edition="1", year= "2018", ISBN= " 123456789"):
         test_user = settings.AUTH_USER_MODEL
-        department= Department.objects.create(name= department['name'])
         textbook = Textbook.objects.create(department=department, user= test_user, title=title,  author=author, publisher=publisher,edition=edition, year=year, ISBN=ISBN)
         for courseInfo in course:
             Course.objects.create(name=courseInfo['name'], department=department)
@@ -31,7 +30,7 @@ class TestTextBook(TestCase):
 
     #test a fields of the form when a textbook is made
     def test_create_textbook(self):
-        tb=self.create_textbook(department=[{'name':'CS'}], course=[{'name':'Data structures'}])
+        tb=self.create_textbook(course=[{'name':'Data structures'}])
         self.assertEqual("CS", tb.department.all()[0].name)
         self.assertEqual("Data structures", tb.course.all()[0].name)
         self.assertTrue(isinstance(tb, Textbook))
