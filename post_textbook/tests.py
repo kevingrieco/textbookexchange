@@ -34,7 +34,7 @@ class TestTextBook(TestCase):
 
     # #test a fields of the form when a textbook is made
     def test_create_department(self):
-        dep=self.create_department(course=[{'name': 'Fun3'}], textbooks=[{'title':'Signals and Systems', 'author':1, 'publisher':'Michigan publishing', 'edition' : 1 , 'year' : 2018 , 'ISBN':123456789 }])
+        dep=self.create_department(course=[{'name': 'Fun3'}], textbooks=[{'title':'Signals and Systems', 'author':'Delong', 'publisher':'Michigan publishing', 'edition' : 1 , 'year' : 2018 , 'ISBN':123456789 }])
         self.assertTrue(isinstance(dep, Department))
         self.assertEqual("Fun3", dep.course.all()[0].name)
         self.assertEqual("Signals and Systems", dep.textbook.all()[0].title)
