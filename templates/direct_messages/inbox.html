@@ -17,7 +17,7 @@
                 Message User&nbsp&nbsp<i class="far fa-edit"></i>
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                {% for r in recipients %}
+                {% for r in recipients|dictsort:"first_name" %}
                     <a class="dropdown-item" onclick="messageUser('{{r.username}}')" style="cursor:pointer"><img src="{{r.socialaccount_set.all.0.extra_data.picture}}" style="height:2em;"> {{r.first_name}} {{r.last_name}}</a>
                 {% endfor %}
             </div>
