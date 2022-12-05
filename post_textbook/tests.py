@@ -37,8 +37,8 @@ class TestTextBook(TestCase):
         dep=self.create_department(course=[{'name': 'Fun3'}], textbooks=[{'title':'Signals and Systems', 'author':1, 'publisher':'Michigan publishing', 'edition' : 1 , 'year' : 2018 , 'ISBN':123456789 }])
         self.assertTrue(isinstance(dep, Department))
         self.assertEqual("Fun3", dep.course.all()[0].name)
-        self.assertEqual(1, dep.textbook.all()[0].title)
-        
+        self.assertEqual("Signals and Systems", dep.textbook.all()[0].title)
+
     # def test_create_textbook(self):
     #     tb=self.create_textbook()
     #     self.assertEqual("ECE", tb.department)
