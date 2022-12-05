@@ -1,5 +1,5 @@
 from django.test import TestCase, Client
-from django.conf import settings
+from django.contrib.auth.models import User
 from .models import Textbook, Department, Course 
 
  #dummy test  
@@ -12,11 +12,11 @@ class TestTextBook(TestCase):
     #test the putting in a department name in form
     def create_department(self, name="ECE", courses=[], textbooks=[]):
         department= Department.objects.create(name=name)
-        test_user = settings.AUTH_USER_MODEL
+        test_user =  User.objects.create(username='test user')
         for course in courses:
             c=Course.objects.create(name=course['name'], department=department)
         for textbook in textbooks:
-            tb=Textbook.objects.create(department=department, course=c, user= test_user, title=textbook['title'],  author=textbook['author'], publisher=textbook['publisher'],edition=textbook['edition'], year=textbook['year'], ISBN=textbook['ISBN'])
+            tb=Textbook.objects.create(department=department, course=c, user=test_user, title=textbook['title'],  author=textbook['author'], publisher=textbook['publisher'],edition=textbook['edition'], year=textbook['year'], ISBN=textbook['ISBN'])
         return department
 
 
