@@ -13,27 +13,32 @@ class TestTextBook(TestCase):
     def create_department(self, name="ECE", courses=[], textbooks=[]):
         department= Department.objects.create(name=name)
         test_user = settings.AUTH_USER_MODEL
-        for c in courses:
-            course=Course.objects.create(name=c['name'], department=department)
+        for course in courses:
+            c=Course.objects.create(name=course['name'], department=department)
         for textbook in textbooks:
-            tb=Textbook.objects.create(department=department, course=course, user= test_user, title=textbook['title'],  author=textbook['author'], publisher=textbook['publisher'],edition=textbook['edition'], year=textbook['year'], ISBN=textbook['ISBN'])
+            tb=Textbook.objects.create(department=department, course=c, user= test_user, title=textbook['title'],  author=textbook['author'], publisher=textbook['publisher'],edition=textbook['edition'], year=textbook['year'], ISBN=textbook['ISBN'])
         return department
 
 
-
     #test the when a course is made
-    # def create_course(self, name= "Fun3", department="ECE"):
-    #     # department= Department.objects.create(name= "ECE")
-    #     course= Course.objects.create(name=name, department=department)
-    #     return course
+    def create_course(self, name= "Fun3", department="ECE"):
+        #department= Department.objects.create(name= "ECE")
+        course= Course.objects.create(name=name, department=department)
+        return course
 
     # #test when a textbook is created
-    # def create_textbook(self, department="ECE", course="Fun3", title="Signals and Systems", author= "Delong", publisher= "Michigan publishing", edition="1", year= "2018", ISBN= " 123456789"):
-    #     test_user = settings.AUTH_USER_MODEL
-    #     textbook = Textbook.objects.create(department=department, course=course, user= test_user, title=title,  author=author, publisher=publisher,edition=edition, year=year, ISBN=ISBN)
-    #     return textbook
+    def create_textbook(self, department="ECE", course="Fun3", title="Signals and Systems", author= "Delong", publisher= "Michigan publishing", edition=1, year= 2018, ISBN= 123456789):
+        test_user = settings.AUTH_USER_MODEL
+        textbook = Textbook.objects.create(department=department, course=course, user= test_user, title=title,  author=author, publisher=publisher,edition=edition, year=year, ISBN=ISBN)
+        return textbook
 
     # #test a fields of the form when a textbook is made
+    def test_create_department(self):
+        dep=self.create_department(course=[{'name': 'Fun3'}], textbooks=[{'title':'Signals and Systems', 'author':1, 'publisher':'Michigan publishing', 'edition' : 1 , 'year' : 2018 , 'ISBN':123456789 }])
+        self.assertTrue(isinstance(dep, Department))
+        self.assertEqual("Fun3", dep.course.all()[0].name)
+        self.assertEqual(1, dep.textbook.all()[0].title)
+        
     # def test_create_textbook(self):
     #     tb=self.create_textbook()
     #     self.assertEqual("ECE", tb.department)
