@@ -22,7 +22,6 @@ class TestTextBook(TestCase):
 
     #test the when a course is made
     def create_course(self, name= "Fun3", department="ECE"):
-        #department= Department.objects.create(name= "ECE")
         course= Course.objects.create(name=name, department=department)
         return course
 
@@ -38,18 +37,25 @@ class TestTextBook(TestCase):
         self.assertTrue(isinstance(dep, Department))
         self.assertEqual("Fun3", dep.course.all()[0].name)
         self.assertEqual("Signals and Systems", dep.textbook.all()[0].title)
+        self.assertEqual("Delong", dep.textbook.all()[1].author)
+        self.assertEqual("Michigan publishing", dep.textbook.all()[2].publisher)
+        self.assertEqual("Delong", dep.textbook.all()[3].author)
+        self.assertEqual(1, dep.textbook.all()[4].edition)
+        self.assertEqual(2018, dep.textbook.all()[5].year)
+        self.assertEqual(123456789, dep.textbook.all()[6].ISBN)
 
-    # def test_create_textbook(self):
-    #     tb=self.create_textbook()
-    #     self.assertEqual("ECE", tb.department)
-    #     self.assertEqual("Fun3", tb.course)
-    #     self.assertEqual("Signals and Systems", tb.title)
-    #     self.assertEqual("Delong", tb.author)
-    #     self.assertEqual("Michigan publishing", tb.publisher)
-    #     self.assertEqual("1", tb.edition)
-    #     self.assertEqual("2018", tb.year)
-    #     self.assertEqual("123456789", tb.ISBN)
-    #     self.assertTrue(isinstance(tb, Textbook))
+
+    def test_create_textbook(self):
+        tb=self.create_textbook()
+        self.assertEqual("ECE", tb.department)
+        self.assertEqual("Fun3", tb.course)
+        self.assertEqual("Signals and Systems", tb.title)
+        self.assertEqual("Delong", tb.author)
+        self.assertEqual("Michigan publishing", tb.publisher)
+        self.assertEqual(1, tb.edition)
+        self.assertEqual(2018, tb.year)
+        self.assertEqual(123456789, tb.ISBN)
+        self.assertTrue(isinstance(tb, Textbook))
     
     # def test_create_textbook_view(self):
     #     client= Client()
