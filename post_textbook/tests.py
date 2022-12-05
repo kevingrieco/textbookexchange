@@ -38,12 +38,12 @@ class TestTextBook(TestCase):
         self.assertEqual("ECE", dep.name)
         self.assertEqual("Fun3", dep.courses.all()[0].name)
         self.assertEqual("Signals and Systems", dep.textbooks.all()[0].title)
-        self.assertEqual("Delong", dep.textbooks.all()[1].author)
-        self.assertEqual("Michigan publishing", dep.textbooks.all()[2].publisher)
-        self.assertEqual("Delong", dep.textbooks.all()[3].author)
-        self.assertEqual(1, dep.textbooks.all()[4].edition)
-        self.assertEqual(2018, dep.textbooks.all()[5].year)
-        self.assertEqual(123456789, dep.textbooks.all()[6].ISBN)
+        self.assertEqual("Delong", dep.textbooks.all()[0].author)
+        self.assertEqual("Michigan publishing", dep.textbooks.all()[0].publisher)
+        self.assertEqual("Delong", dep.textbooks.all()[0].author)
+        self.assertEqual(1, dep.textbooks.all()[0].edition)
+        self.assertEqual(2018, dep.textbooks.all()[0].year)
+        self.assertEqual(123456789, dep.textbooks.all()[0].ISBN)
 
 
     # def test_create_textbook(self):
