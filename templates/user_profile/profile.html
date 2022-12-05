@@ -3,27 +3,52 @@
 {% block content %}
 
 <div class="text-light">
-{% if social_account.0.extra_data %}
-<img src="{{ social_account.0.extra_data.picture }}" style="border-radius:50%;">
-<br><br>
-<p><em>Name:</em> {{social_account.0.extra_data.name}}</p>
-<p><em>Email:</em> {{social_account.0.extra_data.email}}</p>
 
+<div class= "bg-secondary text-light">
+<br>
+
+<h2><em>User Profile</em></h2>
+<br>
+
+
+</div>
+<div class="bg-6c757d text-white">
+
+<br>
+<br>
+
+{% if social_account.0.extra_data %}
+<img src="{{ social_account.0.extra_data.picture }}" style="border-radius:100%;">
+
+<br>
+
+<p><em><h3>{{social_account.0.extra_data.name}}</h3></em></p>
+
+<p><em>Email:</em> {{social_account.0.extra_data.email}}</p>
+<br>
+</div>
 {% else %}
-<p>Name: {{user.username}}</p>
+<p><em><h3> {{user.username}} </h3></em></p>
 {% if user.email%}
 <p>Email: {{user.email}}</p>
 {% endif %}
 {% endif %}
 {% if not empty %}
-<p>My Textbooks:</p>
+<br><br>
+
+<div class= "bg-secondary text-light">
+<br>
+<h2><em>My Textbooks:</em></h2>
+<br>
+</div>
+
 <div class="accordion" id="browseTextbooks">
   <div class="card">
     {% for department, value in departments.items %}
       <h2 class="card-header" id="{{department}}">
           <button class="btn btn-lg" type="button" 
                   data-bs-toggle="collapse" data-bs-target="#collapse{{department}}" 
-                  aria-expanded="true" aria-controls="collapse{{department}}">
+                  aria-expanded="true" aria-controls="collapse{{department}}" aria-pressed="true" >
               {{department}}
           </button>
       </h2>
@@ -43,17 +68,19 @@
                           <p id="{{textbook}}" style="display:inline">
                             <img src="{{textbook.cover}}" style="max-height:100px;" />
                             {{ textbook }}
+                            <br>
+                            <br>
                             <form method="post" action="{% url 'remove_textbook:delete_confirm' textbook.pk %}" class="d-inline-flex" style="display: inline;">
                               {% csrf_token %}
                               <input name="view" id="view" value="user_profile:my_profile" hidden style="display: inline;"/>
-                              <button type="submit" class="btn bg-light text-dark h-100 border-dark mx-3" style="display: inline;"><i class="fa-regular fa-trash-can"></i></button>
+                              <button type="submit" class="btn bg-light text-dark h-100 border-dark mx-3" style="display: inline;"><i class="fa-regular fa-trash-can" aria-pressed="true"></i> delete textbook</button>
                             </form>
                           </p>
-                          <a href="/profile/{{textbook.user.username}}"><p>Posted by 
+                          <a href="/profile/{{textbook.user.username}}"><p><em>Posted by 
                             {% if textbook.user.first_name and textbook.user.last_name %}
-                            <strong>{{textbook.user.first_name}} {{textbook.user.last_name}}</strong>
+                            <strong>{{textbook.user.first_name}} {{textbook.user.last_name}}</em></strong>
                             {% else %}
-                            <strong>{{textbook.user.username}}</strong>
+                            <strong><em>{{textbook.user.username}}</em></strong>
                             {% endif %}
                           </p></a>
                         {% endfor %}
@@ -68,6 +95,13 @@
   </div>
 </div>
 {% else %}
+<br>
+<br>
+<div class= "bg-secondary text-light">
+<br>
+<h2><em>My Textbooks:</em></h2>
+<br>
+</div>
 <br>
 <p><em>You have not posted any textbooks to sell. Click below to post a textbook!</em></p>
 <p><a href="{% url 'post_textbook:choose_department' %}"><button type="button" class="btn btn-outline-light" aria-pressed="true">Post a Textbook</button></a></p>
