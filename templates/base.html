@@ -11,6 +11,9 @@
   <head>
     <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
+    <!-- reference your installed Font Awesome Free package's files here -->
+    <script src="{% static 'fontawesome_free/js/all.min.js' %}"></script>
+  
   </head>
   <nav class="d-flex flex-row justify-content-between navbar navbar-expand-lg navbar-dark bg-dark text-light">
       {% if user.is_authenticated %}

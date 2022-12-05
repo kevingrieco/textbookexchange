@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}  
+
+    <h2> Are you sure you want to delete "{{textbook.title}}" by {{textbook.author}}?</h2>
+    <form method="post" action="{% url 'remove_textbook:delete_textbook' textbook.pk %}" class="form-group mt-3">
+        {% csrf_token %}
+        <input name="view" id="view" value="{{view}}" hidden />
+        <button class="btn bg-danger text-light"><a href="{% url view %}" class="text-light" style="text-decoration:none">Cancel</a></button>
+        <button type="submit" class="btn bg-light text-dark">Delete</button>
+    </form>
+
+{% endblock content %}
