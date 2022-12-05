@@ -15,36 +15,34 @@ class TestTextBook(TestCase):
         return department
 
     #test the when a course is made
-    def create_course(self, name= "Fun3", dep=''):
-        department= Department.objects.create(name= 'ECE')
+    def create_course(self, name= "Fun3", department=""):
+        department= Department.objects.create(name= "ECE")
         course= Course.objects.create(name=name, department=department)
         return course
 
     #test when a textbook is created
-    def create_textbook(self, department='ECE', course=[], title="Signals and Systems", author= "Delong", publisher= "michigan publishing", edition="1", year= "2018", ISBN= " 123456789"):
+    def create_textbook(self, department="ECE", course="CS", title="Signals and Systems", author= "Delong", publisher= "michigan publishing", edition="1", year= "2018", ISBN= " 123456789"):
         test_user = settings.AUTH_USER_MODEL
-        textbook = Textbook.objects.create(department=department, user= test_user, title=title,  author=author, publisher=publisher,edition=edition, year=year, ISBN=ISBN)
-        for courseInfo in course:
-            Course.objects.create(name=courseInfo['name'], department=department)
+        textbook = Textbook.objects.create(department=department, course=course, user= test_user, title=title,  author=author, publisher=publisher,edition=edition, year=year, ISBN=ISBN)
         return textbook
 
     #test a fields of the form when a textbook is made
     def test_create_textbook(self):
-        tb=self.create_textbook(course=[{'name':'Data structures'}])
-        self.assertEqual("CS", tb.department.all()[0].name)
-        self.assertEqual("Data structures", tb.course.all()[0].name)
-        self.assertTrue(isinstance(tb, Textbook))
+        tb=self.create_textbook()
+        self.assertEqual("CS", tb.department)
+        self.assertEqual("Data structures", tb.course)
         self.assertEqual("Signals and Systems", tb.title)
         self.assertEqual("delong", tb.author)
         self.assertEqual("michigan publishing", tb.publisher)
         self.assertEqual("1", tb.edition)
         self.assertEqual("2018", tb.year)
         self.assertEqual("123456789", tb.ISBN)
+        self.assertTrue(isinstance(tb, Textbook))
     
-    # def test_create_textbook_view(self):
-    #     client= Client()
-    #     res=client.get('/create')
-    #     self.assertTemplateUsed(res, "post_textbook/create_textbook.html")
+    def test_create_textbook_view(self):
+        client= Client()
+        res=client.get('/create')
+        self.assertTemplateUsed(res, "post_textbook/create_textbook.html")
   
     
 
