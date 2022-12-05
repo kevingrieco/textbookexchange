@@ -10,9 +10,13 @@ class DummyTest(TestCase):
 #test the form for a creation of a textbook
 class TestTextBook(TestCase):
     #test the putting in a department name in form
-    def create_department(self, name="ECE"):
+    def create_department(self, name='ECE', courses=[]):
         department= Department.objects.create(name=name)
+        for course in courses:
+            Course.objects.create(name=course['name'], department=department)
         return department
+
+
 
     #test the when a course is made
     def create_course(self, name= "Fun3", department="ECE"):
