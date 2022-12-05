@@ -41,10 +41,3 @@ class TestTextBook(TestCase):
         self.assertEqual(123456789, dep.textbooks.all()[0].ISBN)
 
     
-    def test_create_department_view(self):
-        client= Client()
-        res=client.get('/create')
-        self.assertTemplateUsed(res, "post_textbook/create_department.html")
-  
-    
-
