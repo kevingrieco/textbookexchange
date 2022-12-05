@@ -5,17 +5,40 @@
 
 <div class="p-3 mb-2 bg-dark text-white">
     <div class="bg-light text-dark p-3 mb-2" style="border-radius:10px; margin-left:auto;">
+
+        <script>
+            function messageUser(username) {
+                document.getElementById('recipient').value = username;
+                document.getElementById('messageForm').submit();
+            }
+        </script>
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Message User&nbsp&nbsp<i class="far fa-edit"></i>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                {% for r in recipients %}
+                    <a class="dropdown-item" onclick="messageUser('{{r.username}}')" style="cursor:pointer"><img src="{{r.socialaccount_set.all.0.extra_data.picture}}" style="height:2em;"> {{r.first_name}} {{r.last_name}}</a>
+                {% endfor %}
+            </div>
+          </div>
+
+          <form method="post" action="{% url 'direct_messages:message_user' %}" id="messageForm" hidden>
+            {% csrf_token %}
+            <input name="recipient" id="recipient" value="" hidden />
+          </form>
+
         {% if conversations %}
         {% for conversation in conversations|dictsortreversed:"latest" %}
         <a href="{{conversation.pk}}" class="text-dark" style="text-decoration:none;">
             <div class="d-flex justify-content-between border border-secondary p-4 m-2" style="border-radius:10px;">
             {% if conversation.messages %}
-            <div>
+            <div style="height:3em">
                 {% if not user == conversation.user_a %}
                 <h5>
-                {% if conversation.user_a.socialaccount_set.all.0.extra_data.picture %}
-                    <img src="{{conversation.user_a.socialaccount_set.all.0.extra_data.picture}}" style="width:25%;border-radius:50%;float:left;"/>
-                {% endif %}
+                
+                <img src="{{conversation.user_a.socialaccount_set.all.0.extra_data.picture}}" style="width:25%;border-radius:50%;float:left;"/>
+                
                 {% if conversation.user_a.first_name%}
                 <strong class="py-2">{{conversation.user_a.first_name}} {{conversation.user_a.last_name}}</strong>
                 {% else %}
@@ -27,9 +50,9 @@
                 </h5>
                 {% else %}
                 <h5>
-                {% if conversation.user_b.socialaccount_set.all.0.extra_data.picture %}
-                    <img src="{{conversation.user_b.socialaccount_set.all.0.extra_data.picture}}" style="width:25%;border-radius:50%;float:left;"/>
-                {% endif %}
+                
+                <img src="{{conversation.user_b.socialaccount_set.all.0.extra_data.picture}}" style="height:3em;border-radius:50%;float:left;"/>
+                
                 {% if conversation.user_b.first_name%}
                 <strong class="py-2">{{conversation.user_b.first_name}} {{conversation.user_b.last_name}}</strong>
                 {% else %}

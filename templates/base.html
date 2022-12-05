@@ -93,7 +93,7 @@
   {% endif %}
   <div class="p-5 text-center bg-dark">
     <h6 class="mb-3">  
-      {% if user.is_authenticated %}
+      {% if user.is_authenticated and request.path != "/accounts/logout/" %}
       <div class="text-light">
       {% block content %} {% endblock content %}
       </div>
@@ -106,6 +106,8 @@
         <a href="/accounts/logout" style="text-decoration:none;"><button type="button" class="btn btn-outline-light" aria-pressed="true">Logout</button></a>
       {% elif request.path == "/accounts/google/login/" %}
         {% block login_info %} {% endblock login_info %}
+      {% elif request.path == "/accounts/logout/" %}
+        {% block logout_info %} {% endblock logout_info %}
       {% else %}
         <p style="color: whitesmoke">LOGIN TO START EXCHANGING TEXTBOOKS</p>
         <a href="{% provider_login_url 'google' %}"><button type="button" class="btn btn-light btn-lg" aria-pressed="true">Login With Google</button></a>

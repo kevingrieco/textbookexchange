@@ -68,21 +68,13 @@
                           <p id="{{textbook}}" style="display:inline">
                             <img src="{{textbook.cover}}" style="max-height:100px;" />
                             {{ textbook }}
-                            <br>
-                            <br>
                             <form method="post" action="{% url 'remove_textbook:delete_confirm' textbook.pk %}" class="d-inline-flex" style="display: inline;">
                               {% csrf_token %}
                               <input name="view" id="view" value="user_profile:my_profile" hidden style="display: inline;"/>
-                              <button type="submit" class="btn bg-light text-dark h-100 border-dark mx-3" style="display: inline;"><i class="fa-regular fa-trash-can" aria-pressed="true"></i> delete textbook</button>
+                              <button type="submit" class="btn bg-light text-dark h-100 border-dark mx-3" style="display: inline;"><i class="fa-regular fa-trash-can" aria-pressed="true"></i></button>
                             </form>
                           </p>
-                          <a href="/profile/{{textbook.user.username}}"><p><em>Posted by 
-                            {% if textbook.user.first_name and textbook.user.last_name %}
-                            <strong>{{textbook.user.first_name}} {{textbook.user.last_name}}</em></strong>
-                            {% else %}
-                            <strong><em>{{textbook.user.username}}</em></strong>
-                            {% endif %}
-                          </p></a>
+                          <p><em>Posted by you</em></p>
                         {% endfor %}
                       </div>
                   </div>

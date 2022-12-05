@@ -30,9 +30,9 @@
   <br>
   </div>
   {% else %}
-  <p><em><h3> {{user.username}} </h3></em></p>
-  {% if user.email%}
-  <p>Email: {{user.email}}</p>
+  <p><em><h3> {{user_real.username}} </h3></em></p>
+  {% if user_real.email%}
+  <p>Email: {{user_real.email}}</p>
   {% endif %}
   {% endif %}
 <!-- 
@@ -88,13 +88,13 @@
                             <img src="{{textbook.cover}}" style="max-height:100px;" />
                             {{ textbook }}
                           </p>
-                          <a href="/profile/{{textbook.user.username}}"><p>Posted by 
+                          <p>Posted by 
                             {% if textbook.user.first_name and textbook.user.last_name %}
                             <strong>{{textbook.user.first_name}} {{textbook.user.last_name}}</strong>
                             {% else %}
                             <strong>{{textbook.user.username}}</strong>
                             {% endif %}
-                          </p></a>
+                          </p>
                         {% endfor %}
                       </div>
                   </div>
