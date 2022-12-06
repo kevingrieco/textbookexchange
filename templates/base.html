@@ -13,6 +13,7 @@
     </body>
     <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/regular.css' %}" rel="stylesheet" type="text/css">
     <!-- reference your installed Font Awesome Free package's files here -->
     <script src="{% static 'fontawesome_free/js/all.min.js' %}"></script>
   
@@ -28,12 +29,14 @@
         <li class="nav-item px-3 d-inline-block" style="white-space: no-wrap;">
           <a href="{% url 'post_textbook:choose_department' %}" class="nav-link">Submit Textbook</a>
         </li>
+        <li class="nav-item px-3 d-inline-block" style="white-space: no-wrap;">
+          <a href="{% url 'save_textbook:favorites' %}" class="nav-link">Favorites</a>
+        </li>
       </div>
       <div class="d-flex justify-content-end navbar-nav mr-auto px-3">
         <li class="nav-item px-3 me-autod-inline-block" style="white-space: no-wrap;">
           <a href="{% url 'user_profile:my_profile' %}" class="nav-link">
             {% if user.socialaccount_set.all %}
-            <p>Account</p>
             <img src="{{user.socialaccount_set.all.0.extra_data.picture}}" style="width:25%;border-radius:50%;"/>
             {% else %}
             Profile
@@ -105,16 +108,11 @@
       <br>
       <br>
       <br>
-<<<<<<< HEAD
       {% if user.first_name|length %}
         <p style="color: #ced4da">Welcome, {{ user.first_name|title }}. You are logged in!</p>
       {% else %}
         <p style="color: #ced4da">Welcome, {{ user.username|title }}. You are logged in!</p>
       {% endif %}
-=======
-      <!-- Log in message -->
-        <p style="color: #ced4da">Welcome, {{ user|title }}. You are logged in!</p>
->>>>>>> 2ae023d (comments)
         <a href="/accounts/logout" style="text-decoration:none;"><button type="button" class="btn btn-outline-light" aria-pressed="true">Logout</button></a>
       {% elif request.path == "/accounts/google/login/" %}
         {% block login_info %} {% endblock login_info %}
