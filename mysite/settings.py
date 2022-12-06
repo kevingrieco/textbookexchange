@@ -35,12 +35,12 @@ ALLOWED_HOSTS = [
 
 
 # Application definition
+#'fontawesomefree',
 
 INSTALLED_APPS = [
     'post_textbook.apps.PostTextbookConfig',
     'user_profile.apps.UserProfileConfig',
     'direct_messages.apps.DirectMessagesConfig',
-    'fontawesomefree',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
