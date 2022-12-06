@@ -42,7 +42,8 @@
                               <div class="accordion-body text-dark">
                                 <!-- Textbook list -->
                                 {% for textbook in course.textbooks.all|dictsort:"title" %}
-                                  <p id="{{textbook}}" style="display:inline">                         
+                                  <p id="{{textbook}}" style="display:inline">                 
+                                    <!-- textbook cover  -->
                                     <img src="{{textbook.cover}}" style="max-height:100px;" />
                                     {{ textbook }}
                                     <!-- delete button -->
@@ -73,7 +74,9 @@
                                     <em>you</em>
                                     <!-- Message if another user post a textbook -->
                                     {% elif textbook.user.first_name and textbook.user.last_name %}
-                                    <strong>{{textbook.user.first_name}} {{textbook.user.last_name}}</strong>       
+                                    <strong>{{textbook.user.first_name}} {{textbook.user.last_name}}</strong>   
+                                   
+                                    <!-- Save button -->
                                     <form method="post" action="{% url 'save_textbook' textbook.pk %}" class="d-inline-flex" style="display: inline;">
                                       {% csrf_token %}
                                       <input name="view" id="view" value="index" hidden style="display: inline;"/>
