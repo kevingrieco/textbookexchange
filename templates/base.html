@@ -108,16 +108,11 @@
       <br>
       <br>
       <br>
-<<<<<<< HEAD
       {% if user.first_name|length %}
         <p style="color: #ced4da">Welcome, {{ user.first_name|title }}. You are logged in!</p>
       {% else %}
         <p style="color: #ced4da">Welcome, {{ user.username|title }}. You are logged in!</p>
       {% endif %}
-=======
-      <!-- Log in message -->
-        <p style="color: #ced4da">Welcome, {{ user|title }}. You are logged in!</p>
->>>>>>> 2ae023d (comments)
         <a href="/accounts/logout" style="text-decoration:none;"><button type="button" class="btn btn-outline-light" aria-pressed="true">Logout</button></a>
       {% elif request.path == "/accounts/google/login/" %}
         {% block login_info %} {% endblock login_info %}
