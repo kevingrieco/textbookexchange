@@ -35,6 +35,10 @@ def other_profile(request, username):
     social_account = SocialAccount.objects.filter(user=user_real)
     if social_account:
         name = social_account[0].extra_data['name']
+    elif user_real.first_name:
+        name = user_real.first_name
+        if user_real.last_name:
+            name += " " + user_real.last_name
     else:
         name = username
     context = {

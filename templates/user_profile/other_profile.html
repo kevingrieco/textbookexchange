@@ -23,44 +23,25 @@
   <img src="{{ social_account.0.extra_data.picture }}" style="border-radius:100%;">
   
   <br>
-  
-  <p><em><h3>{{social_account.0.extra_data.name}}</h3></em></p>
-  
-  <p><em>Email:</em> {{social_account.0.extra_data.email}}</p>
-  <br>
-  </div>
-  {% else %}
-  <p><em><h3> {{user_real.username}} </h3></em></p>
+  {% endif %}
+  <p><em><h3> {{name}} </h3></em></p>
   {% if user_real.email%}
   <p>Email: {{user_real.email}}</p>
   {% endif %}
-  {% endif %}
-<!-- 
-<div class="text-light">
 
-{% if social_account.0.extra_data %}
-<img src="{{ social_account.0.extra_data.picture }}" style="border-radius:50%;">
-<br><br>
-{% endif %}
-<p>{{name}}</p> -->
 
 <form method="post" action="{% url 'direct_messages:message_user' %}" class="form-group">
   {% csrf_token %}
   <input name="recipient" id="recipient" value="{{user_real.username}}" hidden>
   <button type="submit" class="btn btn-lg btn-light">Message</button>
 </form>
-
 <br>
-{% if not empty %}
 <div class= "bg-secondary text-light">
-  <br>
-  
+  <br> 
   <h2><em>{{name}}'s Textbooks:</em></h2>
   <br>
-  
-  
 </div>
-
+{% if not empty %}
 <div class="accordion" id="browseTextbooks">
   <div class="card">
     {% for department, value in departments.items %}
@@ -107,11 +88,6 @@
   </div>
 </div>
 {% else %}
-<div class= "bg-secondary text-light">
-<br>
-<h2><em>My Textbooks:</em></h2>
-<br>
-</div>
 <br>
 <p><em> {{name}} </em> has not posted any textbooks to sell.</p>
 {% endif %}
