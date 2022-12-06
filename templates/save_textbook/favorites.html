@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}  
+
+    <h3> My Favorites </h3>
+    
+    {% if not favorites|length %}
+    <h2>You currently have no favorite textbooks.</h2>
+    {% else %}
+    <div class="d-flex justify-content-center flex-wrap p-2">
+        {% for textbook in favorites %}
+          <div class="list-group-item" style="flex: 100%;border-radius:5px;">
+            <img src={{textbook.cover}} style="max-height:120px"/>
+            {{ textbook }}
+            <a href="/profile/{{textbook.user.username}}" style="text-decoration:none"><p>Posted by 
+              {% if textbook.user.first_name and textbook.user.last_name %}
+              <strong>{{textbook.user.first_name}} {{textbook.user.last_name}}</strong>
+              {% else %}
+              <strong>{{textbook.user.username}}</strong>
+              {% endif %}
+            </p></a>
+            <form method="post" action="{% url 'save_textbook:save_textbook' textbook.pk %}" class="d-inline-flex" style="display: inline;">
+              {% csrf_token %}
+              <input name="view" id="view" value="index" hidden style="display: inline;"/>
+              <input name="in_favorites" id="in_favorites" value="True" hidden style="display: inline;"/>
+              <button type="submit" class="btn bg-light text-dark h-100 border-dark mx-3" style="display: inline;"><i class="fas fa-heart"></i></button>
+            </form>
+          </div>
+          
+        {% endfor %}
+        </div>
+    {% endif %}
+
+{% endblock content %}

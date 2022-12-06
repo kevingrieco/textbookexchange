@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'post_textbook.apps.PostTextbookConfig',
     'user_profile.apps.UserProfileConfig',
     'direct_messages.apps.DirectMessagesConfig',
+    'save_textbook.apps.SaveTextbookConfig',
     'fontawesomefree',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -56,7 +57,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    #'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
