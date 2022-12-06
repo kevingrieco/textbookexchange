@@ -11,6 +11,25 @@
       <div class="list-group-item" style="flex: 100%;border-radius:5px;">
         <img src={{textbook.cover}} style="max-height:120px"/>
         {{ textbook }}
+        {% if textbook.user == user %}
+        <form method="post" action="{% url 'remove_textbook:delete_confirm' textbook.pk %}" class="d-inline-flex" style="display: inline;">
+          {% csrf_token %}
+          <input name="view" id="view" value="index" hidden style="display: inline;"/>
+          <button type="submit" class="btn bg-light text-dark h-100 border-dark mx-3" style="display: inline;"><i class="fa-regular fa-trash-can"></i></button>
+        </form>
+        {% endif %}
+          <!-- Save button -->
+          <form method="post" action="{% url 'save_textbook:save_textbook' textbook.pk %}" class="d-inline-flex" style="display: inline;">
+            {% csrf_token %}
+            <input name="view" id="view" value="index" hidden style="display: inline;"/>
+            {% if textbook in favorites %}
+            <input name="in_favorites" id="in_favorites" value="True" hidden style="display: inline;"/>
+            <button type="submit" class="btn bg-light text-dark h-100 border-dark mx-3" style="display: inline;"><i class="fas fa-heart"></i></button>
+            {% else %}
+            <button type="submit" class="btn bg-light text-dark h-100 border-dark mx-3" style="display: inline;"><i class="far fa-heart"></i></button>
+            <input name="in_favorites" id="in_favorites" value="False" hidden style="display: inline;"/>
+            {% endif %}
+          </form>
         <a href="/profile/{{textbook.user.username}}"><p>Posted by 
           {% if textbook.user.first_name and textbook.user.last_name %}
           <strong>{{textbook.user.first_name}} {{textbook.user.last_name}}</strong>
