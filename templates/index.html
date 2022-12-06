@@ -77,7 +77,7 @@
                                     <strong>{{textbook.user.first_name}} {{textbook.user.last_name}}</strong>   
                                    
                                     <!-- Save button -->
-                                    <form method="post" action="{% url 'save_textbook:save_confirm' textbook.pk %}" class="d-inline-flex" style="display: inline;">
+                                    <form method="post" action="{% url 'remove_textbook:remove_confirm' textbook.pk %}" class="d-inline-flex" style="display: inline;">
                                       {% csrf_token %}
                                       <input name="view" id="view" value="index" hidden style="display: inline;"/>
                                       <button type="submit" class="btn bg-light text-dark h-100 border-dark mx-3" style="display: inline;">Save</button>
