@@ -5,6 +5,7 @@
     <a href="{% url 'index' %}" class="text-light" style="text-decoration:none;">Back to Home</a>
   </button>
     {% if object_list %}
+    <!-- Search messages -->
     <p style="font-size:50pt;">Textbooks Available:</p>
     <div class="d-flex justify-content-center flex-wrap p-2">
     {% for textbook in object_list %}

@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 users = User.objects.all()
-# Create your views here.
+# Gets textbook from database
 
 def get_user_textbooks(user):
     textbooks = user.textbooks.all()
@@ -17,6 +17,7 @@ def get_user_textbooks(user):
         departments[textbook.department][textbook.course].append(textbook)
     return departments
 
+#gets your profile information
 def profile(request):
     social_account = SocialAccount.objects.filter(user=request.user)
     departments = get_user_textbooks(request.user)
@@ -27,6 +28,7 @@ def profile(request):
     }
     return render(request, 'user_profile/profile.html', context)
 
+#gets other profile info
 def other_profile(request, username):
     if username == request.user.username:
         return redirect('user_profile:my_profile')

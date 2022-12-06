@@ -2,7 +2,7 @@ from django.test import TestCase, Client
 from django.contrib.auth.models import User
 from .models import Textbook, Department, Course 
 
- #dummy test  
+#dummy test  
 class DummyTest(TestCase):
     def testShouldWork(self):
         self.assertTrue(True)

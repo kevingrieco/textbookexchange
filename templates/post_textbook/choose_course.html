@@ -4,7 +4,7 @@
     
   <div class="text-dark bg-light pt-4 px-4">
     <h2>Fill in the remaining information:</h2><br>
-
+    <!-- change the department  -->
     <a href="{% url 'post_textbook:choose_department' %}" class="text-decoration-none text-light">
         <button class="btn btn-sm btn-secondary">
             Change Department
@@ -13,11 +13,13 @@
     <form method="post" action="{% url 'post_textbook:textbook_details' %}" class="form-group">
       {% csrf_token %}
       <br><br>
+      <!-- Choose department -->
       <label class="mb-2">Department:</label>
       <select id="department" name="department" class="form-group form-control" readonly>
         <option value="{{dept}}">{{dept}}</option>
       </select>
       <br><br>
+      <!-- Choose course info -->
       <label class="mb-2">Course:</label>
       <select id="course" name="course" class="form-group form-control">
         {% for course in courses%}
@@ -25,6 +27,7 @@
         {% endfor %}
       </select><br><br>
       <hr>
+      <!-- Input boxes for the textbook info -->
       <h3 class="my-5">Textbook Details</h3>
       <label class="mb-2">Title</label><input class="form-group form-control" id="title" name="title" type="text" required><br>
       <label class="mb-2">Author(s)</label><input class="form-group form-control" id="author" name="author" type="text" required><br>

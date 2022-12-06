@@ -55,6 +55,7 @@
         height: 300px;
       "
     >
+    <!-- Login page -->
       <div class="mask" style="background-color: rgba(0, 0, 0, 0.6); height:fit-content;">
         <div class="d-flex justify-content-center h-100">
           <div class="text-white align-items-center">
@@ -80,6 +81,7 @@
             <br>
             <br>
             <br>
+            <!-- Header -->
             <h1 class="display-3 align-items-center">University of Virginia Textbook Exchange</h1>
             <h2 class="mb-3">Buy and Sell Textbooks for UVA Courses</h2>
             <br>
@@ -102,17 +104,23 @@
       <br>
       <br>
       <br>
+<<<<<<< HEAD
       {% if user.first_name|length %}
         <p style="color: #ced4da">Welcome, {{ user.first_name|title }}. You are logged in!</p>
       {% else %}
         <p style="color: #ced4da">Welcome, {{ user.username|title }}. You are logged in!</p>
       {% endif %}
+=======
+      <!-- Log in message -->
+        <p style="color: #ced4da">Welcome, {{ user|title }}. You are logged in!</p>
+>>>>>>> 2ae023d (comments)
         <a href="/accounts/logout" style="text-decoration:none;"><button type="button" class="btn btn-outline-light" aria-pressed="true">Logout</button></a>
       {% elif request.path == "/accounts/google/login/" %}
         {% block login_info %} {% endblock login_info %}
       {% elif request.path == "/accounts/logout/" %}
         {% block logout_info %} {% endblock logout_info %}
       {% else %}
+
         <p style="color: whitesmoke">LOGIN TO START EXCHANGING TEXTBOOKS</p>
         <a href="{% provider_login_url 'google' %}"><button type="button" class="btn btn-light btn-lg" aria-pressed="true">Login With Google</button></a>
       {% endif %}

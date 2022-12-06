@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}  
-
+<!-- Delete button confirmation page -->
     <h3> Are you sure you want to delete "{{textbook.title}}" by {{textbook.author}}?</h3>
     <form method="post" action="{% url 'remove_textbook:delete_textbook' textbook.pk %}" class="form-group mt-3">
         {% csrf_token %}
         <input name="view" id="view" value="{{view}}" hidden />
+        <!-- Cancel button -->
         <button class="btn bg-danger text-light"><a href="{% url view %}" class="text-light" style="text-decoration:none">Cancel</a></button>
+       <!-- Delete button confirmation -->
         <button type="submit" class="btn bg-light text-dark">Delete</button>
     </form>
 

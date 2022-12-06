@@ -3,6 +3,7 @@
 {% block content %}
 <h2 class="text-dark"><em>Please fill out this form to post your textbook:</em></h2>
 
+<!-- First part of textbook form user chooses department and course -->
 <form method="post" action="{% url 'post_textbook:choose_course' %}">
   {% csrf_token %}
     <label>Department:</label>

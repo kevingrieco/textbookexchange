@@ -22,7 +22,7 @@
 <div class=" justify-content-between border border-white p-4 m-2" style="border-radius:10px;">
 
 <br>
-
+<!-- Account info -->
 {% if social_account.0.extra_data %}
 <img src="{{ social_account.0.extra_data.picture }}" style="border-radius:100%;">
 
@@ -46,6 +46,7 @@
 
 <div class= "bg-secondary text-light">
 <br>
+<!-- Table of textbook user posted -->
 <h2><em>My Textbooks:</em></h2>
 <br>
 </div>
@@ -76,6 +77,7 @@
                           <p id="{{textbook}}" style="display:inline">
                             <img src="{{textbook.cover}}" style="max-height:100px;" />
                             {{ textbook }}
+                            <!-- Delete textbook  button -->
                             <form method="post" action="{% url 'remove_textbook:delete_confirm' textbook.pk %}" class="d-inline-flex" style="display: inline;">
                               {% csrf_token %}
                               <input name="view" id="view" value="user_profile:my_profile" hidden style="display: inline;"/>
@@ -103,8 +105,12 @@
 <br>
 </div>
 <br>
+<<<<<<< HEAD
 <div class=" justify-content-between border border-white p-4 m-2" style="border-radius:10px;">
 <br>
+=======
+<!-- message if there is no textbooks -->
+>>>>>>> 2ae023d (comments)
 <p><em>You have not posted any textbooks to sell. Click below to post a textbook!</em></p>
 <p><a href="{% url 'post_textbook:choose_department' %}"><button type="button" class="btn btn-outline-light" aria-pressed="true">Post a Textbook</button></a></p>
 </div>

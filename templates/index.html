@@ -2,6 +2,7 @@
 {% block content %}
     <form action="{% url 'search_results' %}" method="get" class="text-center">
       <div class="input-group">
+        <!-- Search bar -->
         <input name="q" type="text" placeholder="Search by keyword (or leave blank to see all textbooks)" class="form-control">
         <div class="input-group-append">
           <button type="submit" class="btn bg-primary text-light h-100">
@@ -18,6 +19,7 @@
       <div class="card">
         {% for department in departments %}
           <h2 class="card-header" id="{{department}}">
+          <!-- Department selection -->
               <button class="btn btn-lg" type="button" 
                       data-bs-toggle="collapse" data-bs-target="#collapse{{department}}" 
                       aria-expanded="true" aria-controls="collapse{{department}}">
@@ -30,17 +32,20 @@
                   <div class="accordion" id="begin{{course}}">
                       <div class="card">
                           <h2 class="card-header" id="{{course.id}}">
+                            <!-- Course dropdown -->
                               <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{course}}" aria-expanded="false" aria-controls="collapse{{department}}">
                                   {{course}}
                               </button>
                           </h2>
                           <div id="collapse{{course}}" class="accordion-collapse collapse show">
                               <div class="accordion-body text-dark">
+                                <!-- Textbook list -->
                                 {% for textbook in course.textbooks.all|dictsort:"title" %}
                                   <p id="{{textbook}}" style="display:inline">
                                     <img src="{{textbook.cover}}" style="max-height:100px;" />
                                     {{ textbook }}
                                     {% if textbook.user == user %}
+                                    <!-- Delete textbook button -->
                                     <form method="post" action="{% url 'remove_textbook:delete_confirm' textbook.pk %}" class="d-inline-flex" style="display: inline;">
                                       {% csrf_token %}
                                       <input name="view" id="view" value="index" hidden style="display: inline;"/>
@@ -48,9 +53,11 @@
                                     </form>
                                     {% endif %}
                                   </p>
+                                  <!-- Shows the user which textbook they posted -->
                                   <a href="/profile/{{textbook.user.username}}" style="text-decoration:none"><p>Posted by 
                                     {% if textbook.user == user %}
                                     <em>you</em>
+                                    <!-- Shows the use owner name  associated to the textbook -->
                                     {% elif textbook.user.first_name and textbook.user.last_name %}
                                     <strong>{{textbook.user.first_name}} {{textbook.user.last_name}}</strong>
                                     {% else %}
