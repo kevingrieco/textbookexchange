@@ -2,6 +2,10 @@
 
 {% block content %}
 
+
+<!-- *this is about your profiles */
+ -->
+
 <div class="text-light">
 
 <div class= "bg-secondary text-light">
@@ -15,6 +19,8 @@
 <div class="bg-6c757d text-white">
 
 <br>
+<div class=" justify-content-between border border-white p-4 m-2" style="border-radius:10px;">
+
 <br>
 
 {% if social_account.0.extra_data %}
@@ -35,6 +41,8 @@
 {% endif %}
 {% if not empty %}
 <br><br>
+
+</div>
 
 <div class= "bg-secondary text-light">
 <br>
@@ -103,11 +111,16 @@
 <br>
 </div>
 <br>
+<div class=" justify-content-between border border-white p-4 m-2" style="border-radius:10px;">
+<br>
 <p><em>You have not posted any textbooks to sell. Click below to post a textbook!</em></p>
 <p><a href="{% url 'post_textbook:choose_department' %}"><button type="button" class="btn btn-outline-light" aria-pressed="true">Post a Textbook</button></a></p>
+</div>
 {% endif %}
 </div>
 
 
 
 {% endblock %}
+
+
