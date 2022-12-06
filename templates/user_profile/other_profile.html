@@ -4,7 +4,7 @@
 
 <!-- *this is about other peoples */
  -->
- 
+
 <div class="text-light">
 
   <div class= "bg-secondary text-light">
@@ -40,14 +40,7 @@
   {% endif %}
   </div>
   <br>
-<!-- 
-<div class="text-light">
 
-{% if social_account.0.extra_data %}
-<img src="{{ social_account.0.extra_data.picture }}" style="border-radius:50%;">
-<br><br>
-{% endif %}
-<p>{{name}}</p> -->
 
 <form method="post" action="{% url 'direct_messages:message_user' %}" class="form-group">
   {% csrf_token %}
