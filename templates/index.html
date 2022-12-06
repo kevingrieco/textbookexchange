@@ -64,10 +64,10 @@
                                     <em>you</em>
                                     <!-- Message if another user post a textbook -->
                                     {% elif textbook.user.first_name and textbook.user.last_name %}
-                                    <strong>{{textbook.user.first_name}} {{textbook.user.last_name}}</strong>
-                                    <button type="submit" class="btn bg-light text-dark h-100 border-dark mx-3" style="display: inline;">Save</button>
+                                    <strong>{{textbook.user.first_name}} {{textbook.user.last_name}}</strong>                            
                                     {% else %}
                                     <strong>{{textbook.user.username}}</strong>
+                                    <button type="submit" class="btn bg-dark text-dark h-100 border-dark mx-3" style="display: inline;">Save</button>
                                     {% endif %}
                                   </p></a>
                                 {% endfor %}
