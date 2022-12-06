@@ -74,10 +74,10 @@
                                     <!-- Message if another user post a textbook -->
                                     {% elif textbook.user.first_name and textbook.user.last_name %}
                                     <strong>{{textbook.user.first_name}} {{textbook.user.last_name}}</strong>       
-                                    <form method="post" action="{% url 'remove_textbook:delete_confirm' textbook.pk %}" class="d-inline-flex" style="display: inline;">
+                                    <form method="post" action="{% url 'save_textbook' textbook.pk %}" class="d-inline-flex" style="display: inline;">
                                       {% csrf_token %}
                                       <input name="view" id="view" value="index" hidden style="display: inline;"/>
-                                      <button type="submit" class="btn bg-dark text-dark h-100 border-dark mx-3" style="display: inline;">Save</button>
+                                      <button type="submit" class="btn bg-primary text-dark h-100 border-dark mx-3" style="display: inline;">Save</button>
                                     </form>
                                     {% else %}
                                     <strong>{{textbook.user.username}}</strong>
