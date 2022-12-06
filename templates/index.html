@@ -20,7 +20,7 @@
       <div class="card">
         {% for department in departments %}
           <h2 class="card-header" id="{{department}}">
-          <!-- Department dropdown -->
+            <!-- Department dropdown -->
               <button class="btn btn-lg" type="button" 
                       data-bs-toggle="collapse" data-bs-target="#collapse{{department}}" 
                       aria-expanded="true" aria-controls="collapse{{department}}">
@@ -42,9 +42,11 @@
                               <div class="accordion-body text-dark">
                                 <!-- Textbook list -->
                                 {% for textbook in course.textbooks.all|dictsort:"title" %}
-                                  <p id="{{textbook}}" style="display:inline">                         
+                                  <p id="{{textbook}}" style="display:inline">                 
+                                    <!-- textbook cover  -->
                                     <img src="{{textbook.cover}}" style="max-height:100px;" />
                                     {{ textbook }}
+                                    <!-- delete button -->
                                     {% if textbook.user == user %}
                                     <!-- Delete textbook button -->
                                     <form method="post" action="{% url 'remove_textbook:delete_confirm' textbook.pk %}" class="d-inline-flex" style="display: inline;">
@@ -54,17 +56,15 @@
                                     </form>
                                     {% endif %}
                                   </p>
-                                  <!-- Shows the user which textbook they posted -->
-                                  <a href="/profile/{{textbook.user.username}}" style="text-decoration:none"><p>Posted by 
-                                    {% if textbook.user == user %}
-                                    <em>you</em>
-                                    <!-- Shows the use owner name  associated to the textbook -->
+                                  <!-- Message if you post a book -->
                                   <a href="/profile/{{textbook.user.username}}" style="text-decoration:none"><p>Posted by 
                                     {% if textbook.user == user %}
                                     <em>you</em>
                                     <!-- Message if another user post a textbook -->
                                     {% elif textbook.user.first_name and textbook.user.last_name %}
-                                    <strong>{{textbook.user.first_name}} {{textbook.user.last_name}}</strong>       
+                                    <strong>{{textbook.user.first_name}} {{textbook.user.last_name}}</strong>   
+                                   
+                                    <!-- Save button -->
                                     <form method="post" action="{% url 'save_textbook' textbook.pk %}" class="d-inline-flex" style="display: inline;">
                                       {% csrf_token %}
                                       <input name="view" id="view" value="index" hidden style="display: inline;"/>
