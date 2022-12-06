@@ -28,4 +28,5 @@ urlpatterns = [
     path('profile/', include('user_profile.urls')),
     path('inbox/', include('direct_messages.urls')),
     path('textbook/', include('remove_textbook.urls')),
+    path('favorites/', include('save_textbook.urls')),
 ]

@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'post_textbook.apps.PostTextbookConfig',
     'user_profile.apps.UserProfileConfig',
     'direct_messages.apps.DirectMessagesConfig',
+    'save_textbook.apps.SaveTextbookConfig',
+    'fontawesomefree',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

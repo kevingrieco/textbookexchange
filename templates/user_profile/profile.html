@@ -83,6 +83,17 @@
                               <input name="view" id="view" value="user_profile:my_profile" hidden style="display: inline;"/>
                               <button type="submit" class="btn bg-light text-dark h-100 border-dark mx-3" style="display: inline;"><i class="fa-regular fa-trash-can" aria-pressed="true"></i></button>
                             </form>
+                            <form method="post" action="{% url 'save_textbook:save_textbook' textbook.pk %}" class="d-inline-flex" style="display: inline;">
+                              {% csrf_token %}
+                              <input name="view" id="view" value="index" hidden style="display: inline;"/>
+                              {% if textbook in favorites %}
+                              <input name="in_favorites" id="in_favorites" value="True" hidden style="display: inline;"/>
+                              <button type="submit" class="btn bg-light text-dark h-100 border-dark mx-3" style="display: inline;"><i class="fas fa-heart"></i></button>
+                              {% else %}
+                              <button type="submit" class="btn bg-light text-dark h-100 border-dark mx-3" style="display: inline;"><i class="far fa-heart"></i></button>
+                              <input name="in_favorites" id="in_favorites" value="False" hidden style="display: inline;"/>
+                              {% endif %}
+                            </form>
                           </p>
                           <p><em>Posted by you</em></p>
                         {% endfor %}
