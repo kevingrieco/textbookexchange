@@ -4,7 +4,7 @@
 
     <h3> Are you sure you want to save "{{textbook.title}}" by {{textbook.author}}?</h3>
     <h2>All saved textbooks will be saved to your account</h2>
-    <form method="post" action="{% url 'remove_textbook:delete_textbook' textbook.pk %}" class="form-group mt-3">
+    <form method="post" action="{% url 'save_textbook:save_textbook' textbook.pk %}" class="form-group mt-3">
         {% csrf_token %}
         <input name="view" id="view" value="{{view}}" hidden />
         <button class="btn bg-danger text-light"><a href="{% url view %}" class="text-light" style="text-decoration:none">Cancel</a></button>
