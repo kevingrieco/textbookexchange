@@ -69,7 +69,7 @@
                                       </form>
                                   </p>
                                   <!-- Message if you post a book -->
-                                  <a href="/profile/{{textbook.user.username}}" style="text-decoration:none"><p>Posted by 
+                                  <a href="{% url 'user_profile:other_profile' textbook.user.username %}" style="text-decoration:none;"><p>Posted by 
                                     {% if textbook.user == user %}
                                     <em>you</em>
                                     <!-- Message if another user post a textbook -->

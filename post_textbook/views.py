@@ -2,6 +2,7 @@
 from django.shortcuts import render, redirect
 from .models import Department, Course, Textbook
 import requests
+import re
 
 # Create your views here.
 
@@ -25,7 +26,7 @@ def load_courses(request):
     courses_raw = requests.get(f"http://luthers-list.herokuapp.com/api/dept/{dept}?format=json")
     courses_dict = courses_raw.json()
     for course in courses_dict:
-        to_add = f"{dept} {course['catalog_number']}: {course['description']}"
+        to_add = f"{dept} {course['catalog_number']}: {course['description']} ({course['instructor']['name']})"
         if not to_add in courses:
             courses.append(to_add)
     context = {
@@ -36,17 +37,23 @@ def load_courses(request):
 
 def textbook_info(request):
     department_name = request.POST.get('department')
-    course_name = request.POST.get('course')
+    course = request.POST.get('course')
+    match_obj = re.match(r"(?P<dept>[A-Z]+) (?P<course_num>[0-9]+):(?P<course_name>.+)\((?P<instructor>.+)\)", course)
+    course = match_obj.groupdict()
+    course_num = course['course_num']
+    course_name = course['course_name']
+    instructor = course['instructor']
+
 
     if Department.objects.filter(name=department_name).exists():
         department = Department.objects.get(name=department_name)
     else:
         department = Department(name=department_name)
         department.save()
-    if Course.objects.filter(name=course_name).exists():
-        course = Course.objects.get(name=course_name)
+    if Course.objects.filter(name=course_name, instructor=instructor, number=course_num).exists():
+        course = Course.objects.get(name=course_name, instructor=instructor, number=course_num)
     else:
-        course = Course(name=course_name, department=department)
+        course = Course(name=course_name, department=department, instructor=instructor, number=course_num)
         course.save()
     
     user = request.user

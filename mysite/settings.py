@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'user_profile.apps.UserProfileConfig',
     'direct_messages.apps.DirectMessagesConfig',
     'save_textbook.apps.SaveTextbookConfig',
+    'friends.apps.FriendsConfig',
     'fontawesomefree',
     'django.contrib.admin',
     'django.contrib.auth',

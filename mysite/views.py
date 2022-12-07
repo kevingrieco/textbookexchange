@@ -23,26 +23,30 @@ def index_view(request):
     return render(request, 'index.html', context)
 
 
-class SearchResultsView(ListView):
-    model = Textbook
-    template_name = 'search_results.html'
 
-    def get_queryset(self):
-        q = self.request.GET.get('q')
-        object_query = Q(title__icontains=q) | Q(author__icontains=q) | Q(publisher__icontains=q) | Q(department__name__icontains=q) | Q(course__name__icontains=q)
-        
-        try:
-            object_query |= Q(ISBN=int(q))
-        except ValueError:
-            pass
-        try:
-            object_query |= Q(year=int(q))
-        except ValueError:
-            pass
-        try:
-            object_query |= Q(edition=int(q))
-        except ValueError:
-            pass
-        
-        
-        return Textbook.objects.filter(object_query)
+
+def search(request):
+    q = request.GET.get('q')
+    object_query = Q(title__icontains=q) | Q(author__icontains=q) | Q(publisher__icontains=q) | Q(department__name__icontains=q) | Q(course__name__icontains=q)
+    object_query |= Q(course__instructor__icontains=q)
+    
+    try:
+        object_query |= Q(ISBN=int(q))
+    except ValueError:
+        pass
+    try:
+        object_query |= Q(year=int(q))
+    except ValueError:
+        pass
+    try:
+        object_query |= Q(edition=int(q))
+    except ValueError:
+        pass
+    
+    textbooks = Textbook.objects.filter(object_query)
+    departments = {}
+    for textbook in textbooks:
+        if not textbook.department in departments:
+            departments[textbook.department] = {textbook.course: []}
+        departments[textbook.department][textbook.course].append(textbook)
+    return render(request, 'search_results.html', {'departments': departments})

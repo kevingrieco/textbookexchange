@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<script>
+    function handleFriendRequest(accept) {
+        document.getElementById('accept').value = accept;
+        document.getElementById('friendRequestForm').submit();
+    }
+</script>
+<button class="btn d-flex justify-content-start btn-secondary my-3">
+    <a href="{% url 'user_profile:my_profile' %}" class="text-light" style="text-decoration:none;">Back to Profile</a>
+</button>
+    {% if empty %}
+    No friend requests.
+    {% else %}
+        {% for req in friend_requests %}
+        <div class="bg-light text-dark" style="border-radius:10px;">
+        <img src="{{req.socialaccount_set.all.0.extra_data.picture}}" class="m-2" style="height:2em;border-radius:50%;"/>
+            {% if req.first_name %}
+                {{req.first_name}}
+                    {% if req.last_name %}
+                        {{req.last_name}}
+                    {% endif %}
+            {% else %}
+                {{req.username|title}}
+            {% endif %}
+            <button class="btn btn-light border-dark m-2" style="border-radius:50%"><i class="fas fa-check" style="color:green" onclick="handleFriendRequest('True')"></i></button>
+            <button class="btn btn-light border-dark m-2" style="border-radius:50%"><i class="fas fa-times" style="color:red" onclick="handleFriendRequest('False')"></i></button>
+            <form method="post" id="friendRequestForm" action="{% url 'user_profile:handle_friend_request' %}" class="form-group">
+                {% csrf_token %}
+                <input name="pk" id="pk" value="{{req.pk}}" hidden>
+                <input name="accept" id="accept" value="" hidden>
+                <button type="submit" hidden></button>
+            </form>
+
+        </div>
+        {% endfor %}
+        
+    {% endif %}
+{% endblock %}

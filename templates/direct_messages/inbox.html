@@ -20,7 +20,14 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="max-height:300px;overflow:auto;">
                 {% for r in recipients|dictsort:"first_name" %}
-                    <a class="dropdown-item" onclick="messageUser('{{r.username}}')" style="cursor:pointer"><img src="{{r.socialaccount_set.all.0.extra_data.picture}}" style="height:2em;"> {{r.first_name}} {{r.last_name}}</a>
+
+                    <a class="dropdown-item" onclick="messageUser('{{r.username}}')" style="cursor:pointer"><img src="{{r.socialaccount_set.all.0.extra_data.picture}}" style="height:2em;"> 
+                        {% if r.first_name %}
+                        {{r.first_name}} {{r.last_name}}
+                        {% else %}
+                        {{r.username|title}}
+                        {% endif %}
+                    </a>
                 {% endfor %}
             </div>
           </div>

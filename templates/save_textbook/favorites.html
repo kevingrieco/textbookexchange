@@ -4,31 +4,72 @@
 
     <h3> My Favorites </h3>
     
-    {% if not favorites|length %}
+    {% if empty %}
     <h2>You currently have no favorite textbooks.</h2>
     {% else %}
-    <div class="d-flex justify-content-center flex-wrap p-2">
-        {% for textbook in favorites %}
-          <div class="list-group-item" style="flex: 100%;border-radius:5px;">
-            <img src={{textbook.cover}} style="max-height:120px"/>
-            {{ textbook }}
-            <a href="/profile/{{textbook.user.username}}" style="text-decoration:none"><p>Posted by 
-              {% if textbook.user.first_name and textbook.user.last_name %}
-              <strong>{{textbook.user.first_name}} {{textbook.user.last_name}}</strong>
-              {% else %}
-              <strong>{{textbook.user.username}}</strong>
-              {% endif %}
-            </p></a>
-            <form method="post" action="{% url 'save_textbook:save_textbook' textbook.pk %}" class="d-inline-flex" style="display: inline;">
-              {% csrf_token %}
-              <input name="view" id="view" value="index" hidden style="display: inline;"/>
-              <input name="in_favorites" id="in_favorites" value="True" hidden style="display: inline;"/>
-              <button type="submit" class="btn bg-light text-dark h-100 border-dark mx-3" style="display: inline;"><i class="fas fa-heart"></i></button>
-            </form>
-          </div>
-          
-        {% endfor %}
+    <div class="accordion" id="browseTextbooks">
+      <div class="card">
+        {% for department, value in departments.items %}
+          <h2 class="card-header" id="{{department}}">
+              <button class="btn btn-lg" type="button" 
+                      data-bs-toggle="collapse" data-bs-target="#collapse{{department}}" 
+                      aria-expanded="true" aria-controls="collapse{{department}}" aria-pressed="true" >
+                  {{department}}
+              </button>
+          </h2>
+          <div id="collapse{{department}}" class="accordion-collapse collapse">
+            <div class="accordion-body">
+              {% for course, textbooks in value.items %}
+                  <div class="accordion" id="begin{{course}}">
+                      <div class="card">
+                          <h2 class="card-header" id="{{course.id}}">
+                              <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{course}}" aria-expanded="false" aria-controls="collapse{{department}}">
+                                  {{course}}
+                              </button>
+                          </h2>
+                      <div id="collapse{{course}}" class="accordion-collapse collapse show">
+                          <div class="accordion-body text-dark">
+                            {% for textbook in textbooks|dictsort:"title" %}
+                              <p id="{{textbook}}" style="display:inline">
+                                <img src="{{textbook.cover}}" style="max-height:100px;" />
+                                {{ textbook }}
+                                <!-- Delete textbook  button -->
+                                {% if textbook.user == user %}
+                                    <!-- Delete textbook button -->
+                                    <form method="post" action="{% url 'remove_textbook:delete_confirm' textbook.pk %}" class="d-inline-flex" style="display: inline;">
+                                      {% csrf_token %}
+                                      <input name="view" id="view" value="index" hidden style="display: inline;"/>
+                                      <button type="submit" class="btn bg-light text-dark h-100 border-dark mx-3" style="display: inline;"><i class="fa-regular fa-trash-can"></i></button>
+                                    </form>
+                                    {% endif %}
+                                <form method="post" action="{% url 'save_textbook:save_textbook' textbook.pk %}" class="d-inline-flex" style="display: inline;">
+                                  {% csrf_token %}
+                                  <input name="in_favorites" id="in_favorites" value="True" hidden style="display: inline;"/>
+                                  <button type="submit" class="btn bg-light text-dark h-100 border-dark mx-3" style="display: inline;"><i class="fas fa-heart"></i></button>
+                                </form>
+                              </p>
+                              <a href="{% url 'user_profile:other_profile' textbook.user.username %}" style="text-decoration:none;"><p>Posted by 
+                                {% if textbook.user == user %}
+                                <em>you</em>
+                                <!-- Message if another user post a textbook -->
+                                {% elif textbook.user.first_name and textbook.user.last_name %}
+                                <strong>{{textbook.user.first_name}} {{textbook.user.last_name}}</strong>   
+                               
+                                {% else %}
+                                <strong>{{textbook.user.username}}</strong>
+                                {% endif %}
+                              </p></a>
+                            {% endfor %}
+                          </div>
+                      </div>
+                  </div> 
+            </div>
+          {% endfor %}
         </div>
+      </div>
+      {% endfor %}
+      </div>
+    </div>
     {% endif %}
 
 {% endblock content %}

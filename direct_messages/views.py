@@ -100,8 +100,7 @@ def inbox(request):
             conversation.delete()
     # Get conversations again after deleting any
     conversations = Conversation.objects.filter(user_a=request.user) | Conversation.objects.filter(user_b=request.user)
-    recipients = User.objects.exclude(id=request.user.id)
-    recipients = recipients.exclude(username='admin')
+    recipients = request.user.friends.users.all()
     context = {
         'conversations': conversations,
         'recipients': recipients,

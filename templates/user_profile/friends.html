@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<button class="btn d-flex justify-content-start btn-secondary my-3">
+    <a href="{% url 'user_profile:my_profile' %}" class="text-light" style="text-decoration:none;">Back to Profile</a>
+</button>
+
+    {% if empty %}
+    No friends.
+    {% else %}
+        {% for friend in friends %}
+        <a href="{% url 'user_profile:other_profile' friend.username %}" style="text-decoration:none">
+        <div class="bg-light text-dark" style="border-radius:10px;">
+        <img src="{{friend.socialaccount_set.all.0.extra_data.picture}}" class="m-2" style="height:2em;border-radius:50%;"/>
+            {% if friend.first_name %}
+                {{friend.first_name}}
+                    {% if friend.last_name %}
+                        {{friend.last_name}}
+                    {% endif %}
+            {% else %}
+                {{friend.username|title}}
+            {% endif %}
+        </div>
+    </a>
+        {% endfor %}
+        
+    {% endif %}
+{% endblock %}

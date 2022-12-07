@@ -11,10 +11,13 @@ class Department(models.Model):
     
 class Course(models.Model):
     name = models.CharField(max_length=200)
+    number = models.IntegerField()
+    instructor = models.CharField(max_length=200)
     department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name="courses")
+    
 
     def __str__(self):
-        return self.name
+        return f"{self.department} {self.number}: {self.name} ({self.instructor})"
 
 class Textbook(models.Model):
     department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name="textbooks")

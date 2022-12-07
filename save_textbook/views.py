@@ -15,7 +15,6 @@ def save_textbook(request, pk):
         favorites_list.textbooks.remove(textbook)
     else:
         favorites_list.textbooks.add(textbook)
-    view = request.POST.get('view')
     return redirect('save_textbook:favorites')
 
 def favorites(request):
@@ -25,6 +24,11 @@ def favorites(request):
         favorites_list = Favorites(user=request.user)
         favorites_list.save()
     favorites_list = favorites_list.textbooks.all()
-    return render(request, 'save_textbook/favorites.html', {'favorites': favorites_list})
+    departments = {}
+    for textbook in favorites_list:
+        if not textbook.department in departments:
+            departments[textbook.department] = {textbook.course: []}
+        departments[textbook.department][textbook.course].append(textbook)
+    return render(request, 'save_textbook/favorites.html', {'departments': departments, 'empty': len(departments)==0})
 
 

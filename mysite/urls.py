@@ -16,12 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.views import LogoutView
-from .views import SearchResultsView, index_view
+from .views import search, index_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index_view, name='index'),
-    path('search/', SearchResultsView.as_view(), name='search_results'),
+    path('search/', search, name='search_results'),
     path('accounts/', include('allauth.urls')),
     path('logout', LogoutView.as_view()),
     path('post_textbook/', include('post_textbook.urls')),

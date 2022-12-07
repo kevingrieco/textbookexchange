@@ -31,7 +31,28 @@
   <p>Email: {{user_real.email}}</p>
   {% endif %}
 
-
+  {% if is_friend %}
+  <form method="post" action="{% url 'user_profile:remove_friend' %}" class="form-group">
+    {% csrf_token %}
+    <input name="pk" id="pk" value="{{user_real.pk}}" hidden>
+    <button type="submit" class="btn btn-lg btn-light">Remove Friend</button>
+  </form>
+  {% elif is_requested %}
+  <form method="post" action="{% url 'user_profile:request_friend' %}" class="form-group">
+    {% csrf_token %}
+    <input name="pk" id="pk" value="{{user_real.pk}}" hidden>
+    <input name="is_requested" id="is_requested" value="True" hidden>
+    <button type="submit" class="btn btn-lg btn-light">Unrequest</button>
+  </form>
+  {% else %}
+  <form method="post" action="{% url 'user_profile:request_friend' %}" class="form-group">
+    {% csrf_token %}
+    <input name="pk" id="pk" value="{{user_real.pk}}" hidden>
+    <input name="is_requested" id="is_requested" value="False" hidden>
+    <button type="submit" class="btn btn-lg btn-light">Request Friend</button>
+  </form>
+  {% endif %}
+  
 <!-- Message button -->
 <form method="post" action="{% url 'direct_messages:message_user' %}" class="form-group">
   {% csrf_token %}
@@ -81,8 +102,7 @@
                           </p>
                           <form method="post" action="{% url 'save_textbook:save_textbook' textbook.pk %}" class="d-inline-flex" style="display: inline;">
                             {% csrf_token %}
-                            <input name="view" id="view" value="index" hidden style="display: inline;"/>
-                            {% if textbook in favorites %}
+                            {% if textbook in user.favorites.textbooks.all %}
                             <input name="in_favorites" id="in_favorites" value="True" hidden style="display: inline;"/>
                             <button type="submit" class="btn bg-light text-dark h-100 border-dark mx-3" style="display: inline;"><i class="fas fa-heart"></i></button>
                             {% else %}
