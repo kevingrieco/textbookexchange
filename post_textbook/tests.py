@@ -14,7 +14,7 @@ class TestTextBook(TestCase):
         department= Department.objects.create(name=name)
         test_user =  User.objects.create(username='test user')
         for course in courses:
-            c=Course.objects.create(name=course['name'], department=department)
+            c=Course.objects.create(name=course['name'], department=department, instructor='no', number=1)
         for textbook in textbooks:
             tb=Textbook.objects.create(department=department, course=c, user=test_user, title=textbook['title'],  author=textbook['author'], publisher=textbook['publisher'],edition=textbook['edition'], year=textbook['year'], ISBN=textbook['ISBN'])
         return department
