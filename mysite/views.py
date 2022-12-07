@@ -7,12 +7,15 @@ from save_textbook.models import Favorites
 
 def index_view(request):
     departments = Department.objects.order_by('name')
-    try:
-        favorites = Favorites.objects.get(user=request.user)
-    except:
-        favorites = Favorites(user=request.user)
-        favorites.save()
-    favorites = favorites.textbooks.all()
+    if request.user.is_authenticated:
+        try:
+            favorites = Favorites.objects.get(user=request.user)
+        except:
+            favorites = Favorites(user=request.user)
+            favorites.save()
+        favorites = favorites.textbooks.all()
+    else:
+        favorites = None
     context = {
         'departments': departments,
         'favorites': favorites,
