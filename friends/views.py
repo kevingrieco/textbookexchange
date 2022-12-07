@@ -42,9 +42,20 @@ def handle_friend_request(request):
 
 def remove_friend(request):
     user = User.objects.get(pk=request.POST.get('pk'))
+    try:
+        friends = Friends.objects.get(user=request.user)
+    except:
+        friends = Friends(user=request.user)
+        friends.save()
+    try:
+        friends = Friends.objects.get(user=user)
+    except:
+        friends = Friends(user=user)
+        friends.save()
+    
     user.friends.users.remove(request.user)
     request.user.friends.users.remove(user)
-    return redirect(request.POST.get('view'))
+    return redirect('user_profile:other_profile', user.username)
 
 def view_friends(request):
     try:
