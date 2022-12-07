@@ -29,7 +29,20 @@ class SearchResultsView(ListView):
 
     def get_queryset(self):
         q = self.request.GET.get('q')
-        object_list = Textbook.objects.filter(
-            Q(title__icontains=q) | Q(author__icontains=q) | Q(publisher__icontains=q) | Q(department__name__icontains=q) | Q(course__name__icontains=q)
-        )
-        return object_list
+        object_query = Q(title__icontains=q) | Q(author__icontains=q) | Q(publisher__icontains=q) | Q(department__name__icontains=q) | Q(course__name__icontains=q)
+        
+        try:
+            object_query |= Q(ISBN=int(q))
+        except ValueError:
+            pass
+        try:
+            object_query |= Q(year=int(q))
+        except ValueError:
+            pass
+        try:
+            object_query |= Q(edition=int(q))
+        except ValueError:
+            pass
+        
+        
+        return Textbook.objects.filter(object_query)
